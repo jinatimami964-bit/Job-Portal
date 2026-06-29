@@ -1,8 +1,5 @@
 *{
-
     margin:0;
-
-
     padding:0;
     box-sizing:border-box;
     font-family:Arial, sans-serif;
@@ -10,94 +7,228 @@
 
 body{
     background:#f4f4f4;
+    color:#333;
 }
 
-header{
+/* Header */
+
+.app-header{
     background:#004aad;
     color:white;
-    padding:15px 40px;
+    padding:15px 30px;
+}
+
+.header-container{
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
-header h1{
-    font-size:28px;
+.logo-brand{
+    font-size:26px;
+    font-weight:bold;
 }
 
-nav a{
+.brand-accent{
+    color:yellow;
+}
+
+.nav-links a{
     color:white;
     text-decoration:none;
     margin-left:20px;
     font-weight:bold;
 }
 
-nav a:hover{
-    color:#ffd700;
+.nav-links a:hover{
+    color:yellow;
 }
 
-.hero{
-    text-align:center;
-    padding:80px 20px;
+/* Hero Section */
+
+.hero-viewport{
     background:white;
+    text-align:center;
+    padding:70px 20px;
 }
 
-.hero h2{
+.hero-viewport h2{
     font-size:40px;
     color:#004aad;
-    margin-bottom:15px;
 }
 
-.hero p{
+.text-gradient{
+    color:#ff6600;
+}
+
+.hero-viewport p{
+    margin:20px 0;
     font-size:18px;
-    margin-bottom:20px;
-    color:#555;
 }
 
-.hero button{
-    padding:12px 25px;
+/* Search Box */
+
+.search-bar-matrix{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:30px 0;
+}
+
+.search-input-group input{
+    padding:12px;
+    width:250px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.btn-search{
+    padding:12px 20px;
     background:#004aad;
     color:white;
     border:none;
     border-radius:5px;
     cursor:pointer;
-    font-size:16px;
 }
 
-.hero button:hover{
+.btn-search:hover{
     background:#003080;
 }
 
-.features{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    padding:50px;
-    flex-wrap:wrap;
+.popular-tags{
+    margin-top:20px;
 }
 
-.card{
-    background:white;
-    width:280px;
-    padding:25px;
-    border-radius:10px;
-    text-align:center;
-    box-shadow:0 2px 10px rgba(0,0,0,0.2);
-}
-
-.card h3{
+.popular-tags a{
+    text-decoration:none;
     color:#004aad;
+    margin:0 8px;
+}
+
+/* Section */
+
+.feed-section-header{
+    text-align:center;
+    margin:40px 0 20px;
+}
+
+.feed-section-header h3{
+    color:#004aad;
+    font-size:30px;
+}
+
+/* Job Cards */
+
+.job-feed-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+    padding:20px;
+}
+
+.job-card-premium{
+    background:white;
+    width:300px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+.company-profile-row{
+    display:flex;
+    align-items:center;
+    margin:15px 0;
+}
+
+.company-logo-stub{
+    font-size:35px;
+    margin-right:10px;
+}
+
+.company-name{
+    color:gray;
+    font-size:14px;
+}
+
+.job-description-excerpt{
+    margin:15px 0;
+    font-size:15px;
+}
+
+.job-meta-footer{
     margin-bottom:15px;
 }
 
-.card p{
-    color:#555;
+.meta-tag{
+    display:block;
+    margin:5px 0;
 }
 
-footer{
+/* Badge */
+
+.card-badge{
+    display:inline-block;
+    padding:5px 10px;
+    color:white;
+    border-radius:5px;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.full-time{
+    background:green;
+}
+
+.remote{
+    background:purple;
+}
+
+.internship{
+    background:orange;
+}
+
+.part-time{
+    background:#0099cc;
+}
+
+/* Button */
+
+.btn-card-apply{
+    width:100%;
+    padding:10px;
+    background:#004aad;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.btn-card-apply:hover{
+    background:#003080;
+}
+
+/* Footer */
+
+.app-footer{
     background:#222;
     color:white;
     text-align:center;
-    padding:15px;
+    padding:20px;
     margin-top:40px;
+}
+
+.footer-links{
+    margin-top:10px;
+}
+
+.footer-links a{
+    color:white;
+    text-decoration:none;
+    margin:0 10px;
+}
+
+.footer-links a:hover{
+    color:yellow;
 }
