@@ -451,3 +451,60 @@ body {
 .footer-links a:hover {
     color: var(--glow-gold);
 }
+
+
+
+/* ==========================================
+   Mobile-First Media Queries & Responsiveness 
+   ========================================== */
+
+
+@media (max-width: 768px) {
+    body {
+        padding: 0 15px 20px 15px; /* Reduce extra padding on small screens */
+    }
+
+    .header-container {
+        flex-direction: column; /* Stack logo and nav vertically */
+        gap: 15px;
+    }
+
+    .nav-links a {
+        margin: 0 10px; /* Adjust spacing for tapped links on mobile */
+    }
+
+    .hero-viewport h2 {
+        font-size: 32px; /* Scale down giant typography */
+    }
+
+    .hero-viewport p {
+        font-size: 18px;
+    }
+
+    /* Adjust the search bar grid system for vertical stacking */
+    .search-bar-matrix {
+        flex-direction: column;
+        border-radius: 20px; /* Square off aggressive rounded pills */
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .search-input-group {
+        width: 100%;
+    }
+
+    .search-input-group.border-left {
+        border-left: none; /* Remove side-by-side dividing lines */
+        border-top: 1px solid rgba(160, 178, 198, 0.2); /* Replace with top divider */
+        padding-top: 10px;
+    }
+
+    .btn-search {
+        width: 100%; /* Make action button full-width for easy tapping */
+        border-radius: 10px;
+    }
+    
+    .job-feed-grid {
+        padding: 0 15px 20px 15px; /* Match body constraints */
+    }
+}
