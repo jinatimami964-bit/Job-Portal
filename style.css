@@ -1,0 +1,453 @@
+/* Core Glowy Teal Blue & Golden Dusk Ecosystem Variables */
+:root {
+    --bg-deep-navy: #1072af; /* Extra dark canvas for high neon contrast */
+    --bg-card-navy: #0b2230; 
+    --text-primary: #ffffff; 
+    --text-muted: #a0b2c6; 
+    --glow-cyan: #00bfff; /* Crisp laser neon blue from your video */
+    --glow-gold: #ffd700; 
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background: var(--bg-deep-navy);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    padding: 0 40px 40px 40px; /* Removed top padding to completely eliminate layout gaps */
+}
+
+/* Giant Glass Box Wrapper with Animated Tracing Border */
+.portal-glass-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto; /* Completely docked against top frame */
+    background: rgba(11, 34, 48, 0.45); /* Semi-transparent glass base */
+    backdrop-filter: blur(20px); /* Deep premium glass glassmorphism */
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 0 0 20px 20px; /* Sleek square edge on absolute top, curved on bottom */
+    overflow: hidden;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+/* Replicating the laser tracing border frame using an animated gradient pseudo-element */
+.portal-glass-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0 0 20px 20px;
+    padding: 3px; /* Border thickness */
+    background: linear-gradient(90deg, 
+                var(--glow-cyan) 0%, 
+                transparent 25%, 
+                transparent 75%, 
+                var(--glow-cyan) 100%);
+    background-size: 200% 200%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: neon-trace 6s linear infinite; /* Smooth rotating laser cycle */
+    box-shadow: inset 0 0 15px rgba(0, 191, 255, 0.3);
+}
+
+/* 6PM Laser trace loop animation */
+@keyframes neon-trace {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* Header with Translucent Blur */
+.app-header {
+    background: rgba(11, 34, 48, 0.65);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    padding: 25px 40px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-brand {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.brand-accent {
+    color: var(--glow-gold);
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: var(--transition-smooth);
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--glow-cyan);
+    text-shadow: 0 0 12px rgba(0, 191, 255, 0.8);
+}
+
+/* Premium Hero Section */
+.hero-viewport {
+    background: radial-gradient(circle at center, rgba(15, 49, 71, 0.7) 0%, transparent 85%);
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero-viewport h2 {
+    font-size: 56px;
+    color: var(--text-primary);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.text-gradient {
+    color: var(--glow-cyan);
+    text-shadow: 0 0 25px rgba(0, 191, 255, 0.6);
+}
+
+/* Target Upgraded Accent Text styling */
+.hero-viewport p {
+    color: #ffffff; /* Brighter high contrast white */
+    margin: 20px auto;
+    font-size: 24px; /* Larger scaled size to command attention */
+    font-weight: 600; /* Bold yet structured and premium layout */
+    letter-spacing: -0.3px; /* Clean slim tracking style */
+    max-width: 800px;
+    text-shadow: 0 2px 15px rgba(0, 191, 255, 0.35); /* Elegant glowing underlay accent */
+}
+
+/* Premium Glowing Matrix Search Bar */
+/* Premium Matrix Search Bar Container */
+.search-bar-matrix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(4, 13, 20, 0.95);
+    border-radius: 50px;
+    padding: 10px 20px;
+    max-width: 820px;
+    margin: 40px auto;
+    position: relative; /* Context for our absolute laser layer */
+    
+    /* Strong ambient neon bloom behind the bar */
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.9),
+        0 0 25px rgba(0, 191, 255, 0.15),
+        0 0 50px rgba(0, 191, 255, 0.1);
+}
+
+/* Container for the laser tracking framework */
+.laser-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to pass through to inputs */
+    overflow: visible;
+}
+
+/* The actual running laser line styling */
+.laser-track rect {
+    width: 100%;
+    height: 100%;
+    stroke: var(--glow-cyan);
+    stroke-width: 2.5px;
+    
+    /* Creates a distinct laser beam segment with a trailing edge */
+    stroke-dasharray: 250 800; 
+    
+    /* Gives the beam a strong neon glow signature */
+    filter: drop-shadow(0 0 4px var(--glow-cyan)) drop-shadow(0 0 12px var(--glow-cyan));
+    
+    /* Initiates the movement loop around the track */
+    animation: laser-chase 5s linear infinite;
+}
+
+/* Linear loop calculation forcing the line to race around the perimeter */
+@keyframes laser-chase {
+    0% {
+        stroke-dashoffset: 1050;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Interactive focus handling - turns the laser track gold when interacting */
+.search-bar-matrix:focus-within .laser-track rect {
+    stroke: var(--glow-gold);
+    filter: drop-shadow(0 0 4px var(--glow-gold)) drop-shadow(0 0 12px var(--glow-gold));
+}
+
+.search-bar-matrix:focus-within {
+    border-color: var(--glow-gold);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.35);
+}
+
+.search-input-group {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 0 10px;
+}
+
+.search-input-group.border-left {
+    border-left: 1px solid rgba(160, 178, 198, 0.3);
+}
+
+.input-icon {
+    margin-right: 10px;
+    font-size: 22px;
+}
+
+.search-input-group input {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 17px;
+    padding: 12px;
+    width: 100%;
+    outline: none;
+}
+
+.search-input-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.btn-search {
+    padding: 14px 32px;
+    background: var(--glow-cyan);
+    color: #040d14;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-search:hover {
+    background: var(--glow-gold);
+    box-shadow: 0 0 20px var(--glow-gold);
+    transform: translateY(-2px);
+}
+
+.popular-tags {
+    margin-top: 25px;
+    color: var(--text-muted);
+    font-size: 16px;
+}
+
+.popular-tags a {
+    text-decoration: none;
+    color: var(--text-primary);
+    margin: 0 8px;
+    border: 1px solid rgba(0, 191, 255, 0.4);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.popular-tags a:hover {
+    color: var(--glow-gold);
+    border-color: var(--glow-gold);
+    background: rgba(255, 215, 0, 0.08);
+}
+
+/* Sections Headers */
+.feed-section-header {
+    text-align: center;
+    margin: 40px 0 35px;
+}
+
+.feed-section-header h3 {
+    color: var(--text-primary);
+    font-size: 36px;
+}
+
+.feed-section-header p {
+    color: var(--text-muted);
+    font-size: 17px;
+    margin-top: 8px;
+}
+
+/* Premium Neon Glow Job Cards */
+.job-feed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    max-width: 1250px;
+    margin: 0 auto;
+    gap: 30px;
+    padding: 0 40px 40px 40px;
+}
+
+.job-card-premium {
+    background: rgba(11, 34, 48, 0.7); 
+    border: 1px solid rgba(0, 191, 255, 0.15);
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px -15px rgba(0, 0, 0, 0.6);
+    position: relative;
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.job-card-premium:hover {
+    transform: translateY(-7px);
+    border-color: var(--glow-gold);
+    box-shadow: 0 25px 45px -15px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.company-profile-row {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.company-logo-stub {
+    font-size: 32px;
+    margin-right: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.company-profile-row h4 {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.company-name {
+    color: var(--glow-cyan);
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* Bold Catchy Card Snippets */
+.job-description-excerpt {
+    color: #e2e8f0;
+    margin: 18px 0;
+    font-size: 16.5px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.job-meta-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-top: 1px solid rgba(0, 191, 255, 0.2);
+    padding-top: 18px;
+}
+
+.meta-tag {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.meta-tag.salary {
+    color: var(--glow-gold);
+    font-size: 16.5px;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+/* Badges */
+.card-badge {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.full-time { background: rgba(34, 197, 94, 0.25); color: #4ade80; }
+.remote { background: rgba(168, 85, 247, 0.25); color: #c084fc; }
+.internship { background: rgba(249, 115, 22, 0.25); color: #fb923c; }
+.part-time { background: rgba(14, 165, 233, 0.25); color: #38bdf8; }
+
+/* Apply Action Button */
+.btn-card-apply {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--glow-cyan);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-card-apply:hover {
+    background: var(--glow-cyan);
+    color: #040d14;
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+}
+
+/* Translucent Interface Footer */
+.app-footer {
+    background: rgba(3, 10, 15, 0.7);
+    color: var(--text-muted);
+    text-align: center;
+    padding: 45px 20px;
+    border-top: 1px solid rgba(0, 191, 255, 0.15);
+}
+
+.app-footer p {
+    font-size: 15px;
+}
+
+.footer-links {
+    margin-top: 15px;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.footer-links a:hover {
+    color: var(--glow-gold);
+}
