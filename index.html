@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AOSH JobPortal - Discover Your Dream Career</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-gray-900 text-white">
 
-    <div class="portal-glass-container">
+    <div class="portal-glass-container max-w-6xl mx-auto">
 
-        <header class="app-header">
+        <header class="app-header flex justify-between items-center px-6 py-4">
             <div class="header-container">
                 <div class="logo-brand">
                     <span class="logo-icon">💼</span> AOSH<span class="brand-accent">Portal</span>
                 </div>
-                <nav class="nav-links">
+               <nav class="nav-links flex gap-6">
+
+
+
                     <a href="#" class="active">Find Jobs</a>
                     <a href="#">Companies</a>
                     <a href="#">Dashboard</a>
@@ -42,8 +46,12 @@
                         <span class="input-icon">📍</span>
                         <input type="text" placeholder="Dhaka, Bangladesh or Remote...">
                     </div>
-                    <button class="btn-search">Search Positions</button>
+                    <button class="btn-search bg-blue-500 hover:bg-blue-600 text-white font-bold">
+    Search Positions
+</button>
+                
                 </div>
+
                 
                 <div class="popular-tags">
                     <span>Popular:</span>
@@ -61,9 +69,9 @@
                 <p>Explore recently dispatched premium opportunities across our decoupled architecture network.</p>
             </section>
 
-            <div class="job-feed-grid">
+            <div class="job-feed-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <article class="job-card-premium">
+                <article class="job-card-premium p-4 rounded-lg shadow-lg">
                     <div class="card-badge full-time">Full-Time</div>
                     <div class="company-profile-row">
                         <div class="company-logo-stub">🚀</div>
@@ -80,7 +88,7 @@
                     <button class="btn-card-apply">Apply Now</button>
                 </article>
 
-                <article class="job-card-premium">
+           <article class="job-card-premium p-4 rounded-lg shadow-lg">
                     <div class="card-badge remote">Remote</div>
                     <div class="company-profile-row">
                         <div class="company-logo-stub">🎨</div>
@@ -96,8 +104,7 @@
                     </div>
                     <button class="btn-card-apply">Apply Now</button>
                 </article>
-
-                <article class="job-card-premium">
+<article class="job-card-premium p-4 rounded-lg shadow-lg">
                     <div class="card-badge internship">Internship</div>
                     <div class="company-profile-row">
                         <div class="company-logo-stub">💻</div>
@@ -114,7 +121,7 @@
                     <button class="btn-card-apply">Apply Now</button>
                 </article>
 
-                <article class="job-card-premium">
+               <article class="job-card-premium p-4 rounded-lg shadow-lg">
                     <div class="card-badge internship">Internship</div>
                     <div class="company-profile-row">
                         <div class="company-logo-stub">✨</div>
@@ -131,7 +138,7 @@
                     <button class="btn-card-apply">Apply Now</button>
                 </article>
 
-                <article class="job-card-premium">
+                <article class="job-card-premium p-4 rounded-lg shadow-lg">
                     <div class="card-badge part-time">Part-Time</div>
                     <div class="company-profile-row">
                         <div class="company-logo-stub">🔍</div>
@@ -148,7 +155,7 @@
                     <button class="btn-card-apply">Apply Now</button>
                 </article>
 
-                <article class="job-card-premium">
+                <article class="job-card-premium p-4 rounded-lg shadow-lg">
                     <div class="card-badge full-time">Entry-Level</div>
                     <div class="company-profile-row">
                         <div class="company-logo-stub">⚡</div>
@@ -165,7 +172,7 @@
                     <button class="btn-card-apply">Apply Now</button>
                 </article>
 
-                <article class="job-card-premium">
+               <article class="job-card-premium p-4 rounded-lg shadow-lg">
                     <div class="card-badge part-time">Part-Time</div>
                     <div class="company-profile-row">
                         <div class="company-logo-stub">✍️</div>
@@ -182,7 +189,7 @@
                     <button type="button" class="btn-card-apply">Apply Now</button>
                 </article>
 
-                <article class="job-card-premium">
+             <article class="job-card-premium p-4 rounded-lg shadow-lg">
                     <div class="card-badge remote">Remote</div>
                     <div class="company-profile-row">
                         <div class="company-logo-stub">🛡️</div>
@@ -199,7 +206,7 @@
                     <button type="button" class="btn-card-apply">Apply Now</button>
                 </article>
 
-                <article class="job-card-premium">
+                <article class="job-card-premium p-4 rounded-lg shadow-lg">
                     <div class="card-badge full-time">Full-Time</div>
                     <div class="company-profile-row">
                         <div class="company-logo-stub">⚙️</div>
@@ -253,7 +260,7 @@
         <button type="submit">Subscribe</button>
     </form>
 </section>
-        <footer class="app-footer">
+       <footer class="app-footer text-center mt-10">
 
 
 
@@ -270,5 +277,5 @@
     </div>
 <script src="app.js"></script>
 </body>
-</body>
+
 </html>
