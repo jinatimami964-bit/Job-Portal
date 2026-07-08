@@ -5,277 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AOSH JobPortal - Discover Your Dream Career</title>
     <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-gray-900 text-white font-sans">
 
-    <div class="portal-glass-container max-w-6xl mx-auto">
+    <div id="app" class="min-h-screen flex items-center justify-center p-4">
+        </div>
 
-        <header class="app-header flex justify-between items-center">
-            <div class="header-container">
-                <div class="logo-brand">
-                    <span class="logo-icon">💼</span> AOSH<span class="brand-accent">Portal</span>
+    <div id="main-dashboard" class="portal-glass-container max-w-6xl mx-auto hidden p-4 md:p-6">
+
+        <header class="app-header flex justify-between items-center border-b border-slate-800 pb-6 mb-8">
+            <div class="header-container flex justify-between items-center w-full">
+                <div class="logo-brand text-xl font-extrabold text-blue-500">
+                    <span class="logo-icon">💼</span> AOSH<span class="brand-accent text-white">Portal</span>
                 </div>
-               <nav class="nav-links flex gap-6">
-
-
-
-                    <a href="#" class="active">Find Jobs</a>
+                <nav class="nav-links flex gap-6 text-sm font-medium text-slate-400">
+                    <a href="#" class="text-blue-400 underline underline-offset-4">Find Jobs</a>
                     <a href="#">Companies</a>
                     <a href="#">Dashboard</a>
-                    <a href="#" class="btn-login">Sign In</a>
+                    <a href="#" id="logout-btn" class="hover:text-red-400 transition">Sign Out</a>
                 </nav>
             </div>
         </header>
 
-        <section class="hero-viewport">
-            <div class="hero-overlay-content">
-                <h2>Find Your <span class="text-gradient">Dream Job</span> Today</h2>
-                <p>Connecting elite engineering minds with specialized, high-growth technology corporations globally.</p>
+        <section class="mb-10">
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-4">Core Ecosystem Performance Logs</h3>
+            <div id="stats" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section class="hero-viewport mb-10 bg-gradient-to-r from-blue-950 via-slate-900 to-slate-900 rounded-2xl p-8 md:p-12 border border-slate-800 text-center md:text-left">
+            <div class="hero-overlay-content max-w-2xl">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Find Your <span class="text-gradient text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Dream Job</span> Today</h2>
+                <p class="text-slate-400 text-sm md:text-base mb-6">Connecting elite engineering minds with specialized, high-growth technology corporations globally.</p>
                 
-                <div class="search-bar-matrix">
-                    <svg class="laser-track" width="100%" height="100%">
-                        <rect x="0" y="0" width="100%" height="100%" rx="25" fill="none"/>
-                    </svg>
-                    
-                    <div class="search-input-group">
+                <div class="search-bar-matrix flex flex-col sm:flex-row gap-3 items-center bg-slate-900/80 p-3 rounded-xl border border-slate-700">
+                    <div class="search-input-group flex items-center gap-2 w-full">
                         <span class="input-icon">🔍</span>
-                        <input type="text" placeholder="Job title, keywords, or engineering stack...">
+                        <input type="text" placeholder="Job title, keywords..." class="bg-transparent text-white w-full focus:outline-none text-sm">
                     </div>
-                    <div class="search-input-group border-left">
+                    <div class="search-input-group border-left flex items-center gap-2 w-full sm:border-l sm:border-slate-700 sm:pl-3">
                         <span class="input-icon">📍</span>
-                        <input type="text" placeholder="Dhaka, Bangladesh or Remote...">
+                        <input type="text" placeholder="Dhaka or Remote..." class="bg-transparent text-white w-full focus:outline-none text-sm">
                     </div>
-                    <button class="btn-search bg-blue-500 hover:bg-blue-600 text-white font-bold">
-    Search Positions
-</button>
-                
+                    <button class="btn-search w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg transition whitespace-nowrap text-sm">
+                        Search Positions
+                    </button>
                 </div>
 
-                
-                <div class="popular-tags">
+                <div class="popular-tags flex gap-3 text-xs text-slate-400 mt-4 items-center justify-center md:justify-start">
                     <span>Popular:</span>
-                    <a href="#">Laravel</a>
-                    <a href="#">React.js</a>
-                    <a href="#">DevOps</a>
-                    <a href="#">UI/UX</a>
+                    <a href="#" class="bg-slate-800 px-2 py-1 rounded hover:text-white">Laravel</a>
+                    <a href="#" class="bg-slate-800 px-2 py-1 rounded hover:text-white">React.js</a>
+                    <a href="#" class="bg-slate-800 px-2 py-1 rounded hover:text-white">DevOps</a>
+                    <a href="#" class="bg-slate-800 px-2 py-1 rounded hover:text-white">UI/UX</a>
                 </div>
             </div>
         </section>
 
-        <main class="main-content-wrapper">
-            <section class="feed-section-header">
-                <h3>Featured Career Tracks</h3>
-                <p>Explore recently dispatched premium opportunities across our decoupled architecture network.</p>
+        <main class="main-content-wrapper mb-12">
+            <section class="feed-section-header mb-6">
+                <h3 class="text-lg font-bold text-white">Featured Career Tracks</h3>
+                <p class="text-sm text-slate-400">Explore recently dispatched premium opportunities across our decoupled architecture network.</p>
             </section>
 
             <div class="job-feed-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <article class="job-card-premium p-4 rounded-lg shadow-lg">
-                    <div class="card-badge full-time">Full-Time</div>
-                    <div class="company-profile-row">
-                        <div class="company-logo-stub">🚀</div>
-                        <div>
-                            <h4>Senior Frontend Engineer</h4>
-                            <p class="company-name">TechCorp Solutions Ltd.</p>
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-500/10 text-blue-400 text-xs font-semibold px-2.5 py-1 rounded">Full-Time</span>
+                            <span class="company-logo-stub text-lg">🚀</span>
                         </div>
+                        <h4 class="font-bold text-white text-base">Senior Frontend Engineer</h4>
+                        <p class="text-slate-400 text-xs mb-3">TechCorp Solutions Ltd.</p>
+                        <p class="text-slate-300 text-sm mb-4">Build elegant, fluid web environments using CSS Grid, Flexbox, and modern component systems safely.</p>
                     </div>
-                    <p class="job-description-excerpt">Build elegant, fluid web environments using CSS Grid, Flexbox, and modern component systems safely.</p>
-                    <div class="job-meta-footer">
-                        <span class="meta-tag">📍 Dhaka, BD</span>
-                        <span class="meta-tag salary">💰 $70k - $90k</span>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Dhaka, BD</span>
+                            <span class="text-emerald-400 font-medium">💰 $70k - $90k</span>
+                        </div>
+                        <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
                     </div>
-                    <button class="btn-card-apply">Apply Now</button>
                 </article>
 
-           <article class="job-card-premium p-4 rounded-lg shadow-lg">
-                    <div class="card-badge remote">Remote</div>
-                    <div class="company-profile-row">
-                        <div class="company-logo-stub">🎨</div>
-                        <div>
-                            <h4>UI/UX Interface Architect</h4>
-                            <p class="company-name">CreativeLab Interactive</p>
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-purple-500/10 text-purple-400 text-xs font-semibold px-2.5 py-1 rounded">Remote</span>
+                            <span class="company-logo-stub text-lg">🎨</span>
                         </div>
+                        <h4 class="font-bold text-white text-base">UI/UX Interface Architect</h4>
+                        <p class="text-slate-400 text-xs mb-3">CreativeLab Interactive</p>
+                        <p class="text-slate-300 text-sm mb-4">Design high-fidelity interactive user interfaces, visual design trees, and responsive design mockups.</p>
                     </div>
-                    <p class="job-description-excerpt">Design high-fidelity interactive user interfaces, visual design trees, and responsive design mockups.</p>
-                    <div class="job-meta-footer">
-                        <span class="meta-tag">📍 Global Remote</span>
-                        <span class="meta-tag salary">💰 $85k - $105k</span>
-                    </div>
-                    <button class="btn-card-apply">Apply Now</button>
-                </article>
-<article class="job-card-premium p-4 rounded-lg shadow-lg">
-                    <div class="card-badge internship">Internship</div>
-                    <div class="company-profile-row">
-                        <div class="company-logo-stub">💻</div>
-                        <div>
-                            <h4>Web Developer Intern</h4>
-                            <p class="company-name">SoftMind Innovations</p>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Global Remote</span>
+                            <span class="text-emerald-400 font-medium">💰 $85k - $105k</span>
                         </div>
+                        <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
                     </div>
-                    <p class="job-description-excerpt">Excellent opportunity for computer science students to gain professional experience translating Figma mockups into clean, semantic HTML5/CSS3 modules.</p>
-                    <div class="job-meta-footer">
-                        <span class="meta-tag">📍 Mirpur, Dhaka</span>
-                        <span class="meta-tag salary">💰 ৳12,000 /mo</span>
-                    </div>
-                    <button class="btn-card-apply">Apply Now</button>
                 </article>
 
-               <article class="job-card-premium p-4 rounded-lg shadow-lg">
-                    <div class="card-badge internship">Internship</div>
-                    <div class="company-profile-row">
-                        <div class="company-logo-stub">✨</div>
-                        <div>
-                            <h4>Graphic Design Intern</h4>
-                            <p class="company-name">Aura Media Agency</p>
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-amber-500/10 text-amber-400 text-xs font-semibold px-2.5 py-1 rounded">Internship</span>
+                            <span class="company-logo-stub text-lg">💻</span>
                         </div>
+                        <h4 class="font-bold text-white text-base">Web Developer Intern</h4>
+                        <p class="text-slate-400 text-xs mb-3">SoftMind Innovations</p>
+                        <p class="text-slate-300 text-sm mb-4">Gain professional experience translating Figma mockups into clean, semantic HTML5/CSS3 modules.</p>
                     </div>
-                    <p class="job-description-excerpt">Looking for a creative student to develop marketing vectors, brand banners, and social layout assets using Photoshop and Illustrator. Portfolio building focus.</p>
-                    <div class="job-meta-footer">
-                        <span class="meta-tag">📍 Part-Time Remote</span>
-                        <span class="meta-tag salary">💰 ৳10,000 /mo</span>
-                    </div>
-                    <button class="btn-card-apply">Apply Now</button>
-                </article>
-
-                <article class="job-card-premium p-4 rounded-lg shadow-lg">
-                    <div class="card-badge part-time">Part-Time</div>
-                    <div class="company-profile-row">
-                        <div class="company-logo-stub">🔍</div>
-                        <div>
-                            <h4>Code Editor & QA Assistant</h4>
-                            <p class="company-name">Alpha Testing Lab</p>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Mirpur, Dhaka</span>
+                            <span class="text-emerald-400 font-medium">💰 ৳12,000 /mo</span>
                         </div>
+                        <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
                     </div>
-                    <p class="job-description-excerpt">Review raw script files, clean up formatting rules, audit code comments, and log bug tickets before production deployments. Great entry step into DevOps.</p>
-                    <div class="job-meta-footer">
-                        <span class="meta-tag">📍 Remote (BD)</span>
-                        <span class="meta-tag salary">💰 ৳15,000 /mo</span>
-                    </div>
-                    <button class="btn-card-apply">Apply Now</button>
                 </article>
-
-                <article class="job-card-premium p-4 rounded-lg shadow-lg">
-                    <div class="card-badge full-time">Entry-Level</div>
-                    <div class="company-profile-row">
-                        <div class="company-logo-stub">⚡</div>
-                        <div>
-                            <h4>Junior Web Developer</h4>
-                            <p class="company-name">DevsSquad Bangladesh</p>
-                        </div>
-                    </div>
-                    <p class="job-description-excerpt">Join an active agile team to assist in managing core layouts, updating CSS media queries, and running standard version control routines inside collaborative repositories.</p>
-                    <div class="job-meta-footer">
-                        <span class="meta-tag">📍 Banani, Dhaka</span>
-                        <span class="meta-tag salary">💰 ৳25,000 /mo</span>
-                    </div>
-                    <button class="btn-card-apply">Apply Now</button>
-                </article>
-
-               <article class="job-card-premium p-4 rounded-lg shadow-lg">
-                    <div class="card-badge part-time">Part-Time</div>
-                    <div class="company-profile-row">
-                        <div class="company-logo-stub">✍️</div>
-                        <div>
-                            <h4>Content Writer</h4>
-                            <p class="company-name">Creative Media Studio</p>
-                        </div>
-                    </div>
-                    <p class="job-description-excerpt">Write engaging blog posts, website content, and social media captions. Strong writing skills and creativity are preferred. Freshers are welcome to apply.</p>
-                    <div class="job-meta-footer">
-                        <span class="meta-tag">📍 Remote (BD)</span>
-                        <span class="meta-tag salary">💰 ৳18,000 /mo</span>
-                    </div>
-                    <button type="button" class="btn-card-apply">Apply Now</button>
-                </article>
-
-             <article class="job-card-premium p-4 rounded-lg shadow-lg">
-                    <div class="card-badge remote">Remote</div>
-                    <div class="company-profile-row">
-                        <div class="company-logo-stub">🛡️</div>
-                        <div>
-                            <h4>Cybersecurity Threat Analyst</h4>
-                            <p class="company-name">SecureNet Core Systems</p>
-                        </div>
-                    </div>
-                    <p class="job-description-excerpt">Monitor cloud firewalls, perform vulnerability architecture scans, and engineer custom defenses against threat matrix attacks globally.</p>
-                    <div class="job-meta-footer">
-                        <span class="meta-tag">📍 Global Remote</span>
-                        <span class="meta-tag salary">💰 $95k - $120k</span>
-                    </div>
-                    <button type="button" class="btn-card-apply">Apply Now</button>
-                </article>
-
-                <article class="job-card-premium p-4 rounded-lg shadow-lg">
-                    <div class="card-badge full-time">Full-Time</div>
-                    <div class="company-profile-row">
-                        <div class="company-logo-stub">⚙️</div>
-                        <div>
-                            <h4>DevOps & Cloud Engineer</h4>
-                            <p class="company-name">DataNexus Global</p>
-                        </div>
-                    </div>
-                    <p class="job-description-excerpt">Manage containerized cluster modules with Docker and Kubernetes while constructing decoupled, high-availability CI/CD pipelines.</p>
-                    <div class="job-meta-footer">
-                        <span class="meta-tag">📍 Gulshan, Dhaka</span>
-                        <span class="meta-tag salary">💰 ৳85,000 /mo</span>
-                    </div>
-                    <button type="button" class="btn-card-apply">Apply Now</button>
-                </article>
-
             </div>
         </main>
 
-
-
-
-<section class="testimonial-section">
-    <h3>What Our Users Say</h3>
-
-    <div class="testimonial-grid">
-        <div class="testimonial-card">
-            <p>"This portal helped me land my first developer job!"</p>
-            <h5>- Atia, Web Developer</h5>
-        </div>
-
-        <div class="testimonial-card">
-            <p>"Very clean UI and easy to find jobs."</p>
-            <h5>- Ayesha, UI Designer</h5>
-        </div>
-
-        <div class="testimonial-card">
-            <p>"Best platform for fresh graduates in Bangladesh."</p>
-            <h5>- Faria, Software Intern</h5>
-        </div>
-    </div>
-</section>
-
-
-<section class="newsletter-section">
-    <h3>Stay Updated</h3>
-    <p>Get latest job updates directly to your inbox.</p>
-
-    <form class="newsletter-form">
-        <input type="email" placeholder="Enter your email..." required>
-        <button type="submit">Subscribe</button>
-    </form>
-</section>
-       <footer class="app-footer text-center mt-10">
-
-
-
-
-            <div class="footer-container">
-                <p>&copy; 2026 AOSH Job Portal Ecosystem. Developed by Group 5 (Section 9B) for CSE 3292.</p>
-                <div class="footer-links">
-                    <a href="#">Privacy Protocol</a>
-                    <a href="#">Terms of Architecture</a>
+        <section class="testimonial-section mb-12 bg-slate-800/40 border border-slate-800 p-6 rounded-2xl">
+            <h3 class="text-lg font-bold text-white mb-6 text-center">What Our Users Say</h3>
+            <div class="testimonial-grid grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="testimonial-card bg-slate-800 p-4 rounded-xl border border-slate-700/60">
+                    <p class="text-sm text-slate-300 italic mb-3">"This portal helped me land my first developer job!"</p>
+                    <h5 class="text-xs font-bold text-blue-400">- Atia, Web Developer</h5>
+                </div>
+                <div class="testimonial-card bg-slate-800 p-4 rounded-xl border border-slate-700/60">
+                    <p class="text-sm text-slate-300 italic mb-3">"Very clean UI and easy to find jobs."</p>
+                    <h5 class="text-xs font-bold text-blue-400">- Ayesha, UI Designer</h5>
+                </div>
+                <div class="testimonial-card bg-slate-800 p-4 rounded-xl border border-slate-700/60">
+                    <p class="text-sm text-slate-300 italic mb-3">"Best platform for fresh graduates in Bangladesh."</p>
+                    <h5 class="text-xs font-bold text-blue-400">- Faria, Software Intern</h5>
                 </div>
             </div>
+        </section>
+
+        <section class="newsletter-section bg-slate-800 rounded-xl p-6 border border-slate-700 flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+            <div>
+                <h3 class="text-base font-bold text-white">Stay Updated</h3>
+                <p class="text-xs text-slate-400">Get latest job updates directly to your inbox.</p>
+            </div>
+            <form class="newsletter-form flex gap-2 w-full md:w-auto max-w-md">
+                <input type="email" placeholder="Enter your email..." class="bg-slate-900 border border-slate-600 text-white text-xs px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-full md:w-64" required>
+                <button type="submit" class="bg-white text-slate-900 font-bold px-4 py-2 rounded-lg text-xs hover:bg-slate-200 transition">Subscribe</button>
+            </form>
+        </section>
+
+        <footer class="app-footer text-center pt-6 border-t border-slate-800 text-xs text-slate-500">
+            <p>&copy; 2026 AOSH Job Portal Ecosystem. Developed by Group 5 (Section 9B) for CSE 3292.</p>
+            <div class="footer-links flex justify-center gap-4 mt-2">
+                <a href="#" class="hover:underline">Privacy Protocol</a>
+                <a href="#" class="hover:underline">Terms of Architecture</a>
+            </div>
         </footer>
-
     </div>
-<script src="app.js"></script>
+    
+    <script src="app.js"></script>
 </body>
-
 </html>
