@@ -17,7 +17,10 @@
 }
 
 body {
-    background: var(--bg-deep-navy);
+    
+    background: radial-gradient(circle at center, #1a4b6b, #0a192f);
+
+    /*background: var(--bg-deep-navy);*/
     color: var(--text-primary);
     overflow-x: hidden;
     padding: 0 40px 40px 40px; /* Removed top padding to completely eliminate layout gaps */
