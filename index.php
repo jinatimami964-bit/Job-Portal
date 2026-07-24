@@ -1,0 +1,300 @@
+
+<?php
+session_start();
+
+if(!isset($_SESSION['user_id'])){
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
+?>
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AOSH JobPortal - Discover Your Dream Career</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+    <div id="app" class="min-h-screen flex items-center justify-center p-4">
+    </div>
+
+    <div id="main-dashboard" class="portal-glass-container max-w-6xl mx-auto p-4 md:p-6">
+
+        <header class="app-header flex justify-between items-center border-b border-slate-800 pb-6 mb-8">
+            <div class="header-container flex justify-between items-center w-full">
+                <div class="logo-brand text-xl font-extrabold text-blue-500">
+                    <span class="logo-icon">💼</span> AOSH<span class="brand-accent text-white">Portal</span>
+                </div>
+                <nav class="nav-links flex gap-6 text-sm font-medium text-slate-400">
+                    <a href="#" class="text-blue-400 underline underline-offset-4">Find Jobs</a>
+                    <a href="#">Companies</a>
+                    <a href="#">Dashboard</a>
+                    <span>Welcome, <?php echo htmlspecialchars($username); ?></span>
+                    <a href="#" id="logout-btn" class="hover:text-red-400 transition">Sign Out</a>
+                </nav>
+            </div>
+        </header>
+
+        <section class="mb-10">
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-4">Core Ecosystem Performance Logs</h3>
+            <div id="stats" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section class="hero-viewport mb-10 bg-gradient-to-r from-blue-950 via-slate-900 to-slate-900 rounded-2xl p-8 md:p-12 border border-slate-800 text-center md:text-left">
+            <div class="hero-overlay-content max-w-2xl">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Find Your <span class="text-gradient text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Dream Job</span> Today</h2>
+                <p class="text-slate-400 text-sm md:text-base mb-6">Connecting elite engineering minds with specialized, high-growth technology corporations globally.</p>
+                
+                <div class="search-bar-matrix flex flex-col sm:flex-row gap-3 items-center bg-slate-900/80 p-3 rounded-xl border border-slate-700">
+                    <div class="search-input-group flex items-center gap-2 w-full">
+                        <span class="input-icon">🔍</span>
+                        <input type="text" placeholder="Job title, keywords..." class="bg-transparent text-white w-full focus:outline-none text-sm">
+                    </div>
+                    <div class="search-input-group border-left flex items-center gap-2 w-full sm:border-l sm:border-slate-700 sm:pl-3">
+                        <span class="input-icon">📍</span>
+                        <input type="text" placeholder="Dhaka or Remote..." class="bg-transparent text-white w-full focus:outline-none text-sm">
+                    </div>
+                    <button class="btn-search w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg transition whitespace-nowrap text-sm">
+                        Search Positions
+                    </button>
+                </div>
+
+                <div class="popular-tags flex gap-3 text-xs text-slate-400 mt-4 items-center justify-center md:justify-start">
+                    <span>Popular:</span>
+                    <a href="#" class="bg-slate-800 px-2 py-1 rounded hover:text-white">Laravel</a>
+                    <a href="#" class="bg-slate-800 px-2 py-1 rounded hover:text-white">React.js</a>
+                    <a href="#" class="bg-slate-800 px-2 py-1 rounded hover:text-white">DevOps</a>
+                    <a href="#" class="bg-slate-800 px-2 py-1 rounded hover:text-white">UI/UX</a>
+                </div>
+            </div>
+        </section>
+
+        <main class="main-content-wrapper mb-12">
+            <section class="feed-section-header mb-6">
+                <h3 class="text-lg font-bold text-white">Featured Career Tracks</h3>
+                <p class="text-sm text-slate-400">Explore recently dispatched premium opportunities across our decoupled architecture network.</p>
+            </section>
+
+            <div class="job-feed-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-500/10 text-blue-400 text-xs font-semibold px-2.5 py-1 rounded">Full-Time</span>
+                            <span class="company-logo-stub text-lg">🚀</span>
+                        </div>
+                        <h4 class="font-bold text-white text-base">Senior Frontend Engineer</h4>
+                        <p class="text-slate-400 text-xs mb-3">TechCorp Solutions Ltd.</p>
+                        <p class="text-slate-300 text-sm mb-4">Build elegant, fluid web environments using CSS Grid, Flexbox, and modern component systems safely.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Dhaka, BD</span>
+                            <span class="text-emerald-400 font-medium">💰 $70k - $90k</span>
+                        </div>
+                        <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
+                    </div>
+                </article>
+
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-purple-500/10 text-purple-400 text-xs font-semibold px-2.5 py-1 rounded">Remote</span>
+                            <span class="company-logo-stub text-lg">🎨</span>
+                        </div>
+                        <h4 class="font-bold text-white text-base">UI/UX Interface Architect</h4>
+                        <p class="text-slate-400 text-xs mb-3">CreativeLab Interactive</p>
+                        <p class="text-slate-300 text-sm mb-4">Design high-fidelity interactive user interfaces, visual design trees, and responsive design mockups.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Global Remote</span>
+                            <span class="text-emerald-400 font-medium">💰 $85k - $105k</span>
+                        </div>
+                        <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
+                    </div>
+                </article>
+
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-amber-500/10 text-amber-400 text-xs font-semibold px-2.5 py-1 rounded">Internship</span>
+                            <span class="company-logo-stub text-lg">💻</span>
+                        </div>
+                        <h4 class="font-bold text-white text-base">Web Developer Intern</h4>
+                        <p class="text-slate-400 text-xs mb-3">SoftMind Innovations</p>
+                        <p class="text-slate-300 text-sm mb-4">Gain professional experience translating Figma mockups into clean, semantic HTML5/CSS3 modules.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Mirpur, Dhaka</span>
+                            <span class="text-emerald-400 font-medium">💰 ৳12,000 /mo</span>
+                        </div>
+                        <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
+                    </div>
+                </article>
+
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-amber-500/10 text-amber-400 text-xs font-semibold px-2.5 py-1 rounded">Internship</span>
+                            <span class="company-logo-stub text-lg">✨</span>
+                        </div>
+                        <h4 class="font-bold text-white text-base">Graphic Design Intern</h4>
+                        <p class="text-slate-400 text-xs mb-3">Aura Media Agency</p>
+                        <p class="text-slate-300 text-sm mb-4">Looking for a creative student to develop marketing vectors, brand banners, and social layout assets using Photoshop and Illustrator.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Part-Time Remote</span>
+                            <span class="text-emerald-400 font-medium">💰 ৳10,000 /mo</span>
+                        </div>
+                        <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
+                    </div>
+                </article>
+
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded">Part-Time</span>
+                            <span class="company-logo-stub text-lg">🔍</span>
+                        </div>
+                        <h4 class="font-bold text-white text-base">Code Editor & QA Assistant</h4>
+                        <p class="text-slate-400 text-xs mb-3">Alpha Testing Lab</p>
+                        <p class="text-slate-300 text-sm mb-4">Review raw script files, clean up formatting rules, audit code comments, and log bug tickets before production deployments.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Remote (BD)</span>
+                            <span class="text-emerald-400 font-medium">💰 ৳15,000 /mo</span>
+                        </div>
+                        <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
+                    </div>
+                </article>
+
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded">Entry-Level</span>
+                            <span class="company-logo-stub text-lg">⚡</span>
+                        </div>
+                        <h4 class="font-bold text-white text-base">Junior Web Developer</h4>
+                        <p class="text-slate-400 text-xs mb-3">DevsSquad Bangladesh</p>
+                        <p class="text-slate-300 text-sm mb-4">Join an active agile team to assist in managing core layouts, updating CSS media queries, and running standard version control routines.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Banani, Dhaka</span>
+                            <span class="text-emerald-400 font-medium">💰 ৳25,000 /mo</span>
+                        </div>
+                        <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
+                    </div>
+                </article>
+
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded">Part-Time</span>
+                            <span class="company-logo-stub text-lg">✍️</span>
+                        </div>
+                        <h4 class="font-bold text-white text-base">Content Writer</h4>
+                        <p class="text-slate-400 text-xs mb-3">Creative Media Studio</p>
+                        <p class="text-slate-300 text-sm mb-4">Write engaging blog posts, website content, and social media captions. Strong writing skills and creativity are preferred.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Remote (BD)</span>
+                            <span class="text-emerald-400 font-medium">💰 ৳18,000 /mo</span>
+                        </div>
+                        <button type="button" class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
+                    </div>
+                </article>
+
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-purple-500/10 text-purple-400 text-xs font-semibold px-2.5 py-1 rounded">Remote</span>
+                            <span class="company-logo-stub text-lg">🛡️</span>
+                        </div>
+                        <h4 class="font-bold text-white text-base">Cybersecurity Threat Analyst</h4>
+                        <p class="text-slate-400 text-xs mb-3">SecureNet Core Systems</p>
+                        <p class="text-slate-300 text-sm mb-4">Monitor cloud firewalls, perform vulnerability architecture scans, and engineer custom defenses against threat matrix attacks.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Global Remote</span>
+                            <span class="text-emerald-400 font-medium">💰 $95k - $120k</span>
+                        </div>
+                        <button type="button" class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
+                    </div>
+                </article>
+
+                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-500/10 text-blue-400 text-xs font-semibold px-2.5 py-1 rounded">Full-Time</span>
+                            <span class="company-logo-stub text-lg">⚙️</span>
+                        </div>
+                        <h4 class="font-bold text-white text-base">DevOps & Cloud Engineer</h4>
+                        <p class="text-slate-400 text-xs mb-3">DataNexus Global</p>
+                        <p class="text-slate-300 text-sm mb-4">Manage containerized cluster modules with Docker and Kubernetes while constructing decoupled, high-availability CI/CD pipelines.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+                            <span>📍 Gulshan, Dhaka</span>
+                            <span class="text-emerald-400 font-medium">💰 ৳85,000 /mo</span>
+                        </div>
+                        <button type="button" class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
+                    </div>
+                </article>
+
+            </div>
+        </main>
+
+        <section class="testimonial-section mb-12 bg-slate-800/40 border border-slate-800 p-6 rounded-2xl">
+            <h3 class="text-lg font-bold text-white mb-6 text-center">What Our Users Say</h3>
+            <div class="testimonial-grid grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="testimonial-card bg-slate-800 p-4 rounded-xl border border-slate-700/60">
+                    <p class="text-sm text-slate-300 italic mb-3">"This portal helped me land my first developer job!"</p>
+                    <h5 class="text-xs font-bold text-blue-400">- Atia, Web Developer</h5>
+                </div>
+                <div class="testimonial-card bg-slate-800 p-4 rounded-xl border border-slate-700/60">
+                    <p class="text-sm text-slate-300 italic mb-3">"Very clean UI and easy to find jobs."</p>
+                    <h5 class="text-xs font-bold text-blue-400">- Ayesha, UI Designer</h5>
+                </div>
+                <div class="testimonial-card bg-slate-800 p-4 rounded-xl border border-slate-700/60">
+                    <p class="text-sm text-slate-300 italic mb-3">"Best platform for fresh graduates in Bangladesh."</p>
+                    <h5 class="text-xs font-bold text-blue-400">- Faria, Software Intern</h5>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter-section bg-slate-800 rounded-xl p-6 border border-slate-700 flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+            <div>
+                <h3 class="text-base font-bold text-white">Stay Updated</h3>
+                <p class="text-xs text-slate-400">Get latest job updates directly to your inbox.</p>
+            </div>
+            <form class="newsletter-form flex gap-2 w-full md:w-auto max-w-md">
+                <input type="email" placeholder="Enter your email..." class="bg-slate-900 border border-slate-600 text-white text-xs px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-full md:w-64" required>
+                <button type="submit" class="bg-white text-slate-900 font-bold px-4 py-2 rounded-lg text-xs hover:bg-slate-200 transition">Subscribe</button>
+            </form>
+        </section>
+
+        <footer class="app-footer text-center pt-6 border-t border-slate-800 text-xs text-slate-500">
+            <p>&copy; 2026 AOSH Job Portal Ecosystem. Developed by Group 5 (Section 9B) for CSE 3292.</p>
+            <div class="footer-links flex justify-center gap-4 mt-2">
+                <a href="#" class="hover:underline">Privacy Protocol</a>
+                <a href="#" class="hover:underline">Terms of Architecture</a>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
