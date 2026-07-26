@@ -7,8 +7,17 @@ if(isset($_POST['register'])){
 
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $raw_password = $_POST['password'];
+       // --- ADDED: Backend Password Validation Matching app.js Rules ---
+    $has_min_len = strlen($raw_password) >= 8;
+    $has_uppercase = preg_match('/[A-Z]/', $raw_password);
+    $has_number    = preg_match('/[0-9]/', $raw_password);
+    $has_special   = preg_match('/[^A-Za-z0-9]/', $raw_password);
 
+    if (!$has_min_len || !$has_uppercase || !$has_number || !$has_special) {
+        $message = "Password does not meet safety standards! (Min 8 chars, 1 uppercase, 1 digit, 1 special char required).";
+    } 
+else {
     $check = mysqli_query($conn,"SELECT * FROM users WHERE email='$email'");
 
     if(mysqli_num_rows($check)>0){
@@ -16,9 +25,12 @@ if(isset($_POST['register'])){
         $message = "Email already exists!";
 
     }else{
+  $password = password_hash($raw_password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO users(username,email,password)
                 VALUES('$username','$email','$password')";
+               
+
 
         if(mysqli_query($conn,$sql)){
             header("Location: login.php");
@@ -28,7 +40,7 @@ if(isset($_POST['register'])){
         }
     }
   
-
+}
 }
 ?>
 
