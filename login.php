@@ -3,7 +3,11 @@ session_start();
 include "db_connect.php";
 
 $error = "";
-
+// ADDED: Check if redirected from a 3-minute session timeout
+// =========================================================================
+if (isset($_GET['timeout'])) {
+    $error = "Your 3-minute session expired. Please log in again.";
+}
 if(isset($_POST['login'])){
 
 $email = $_POST['email'];
@@ -23,7 +27,7 @@ $_SESSION['user_id']=$user['id'];
 $_SESSION['username']=$user['username'];
 // --- CHANGED / ADDED LINE BELOW: Track login timestamp for session timeout ---
 $_SESSION['last_activity'] = time();
-header("Location: dashboard.php");
+header("Location: index.php");
 exit();
 
 }else{

@@ -1,13 +1,13 @@
 <?php
 session_start();
-// 2 minutes in seconds
-$timeout_duration = 120;
+// 3 minutes in seconds
+$timeout_duration = 180;
 
 // Check if last activity timestamp exists
 if (isset($_SESSION['last_activity'])) {
     $elapsed_time = time() - $_SESSION['last_activity'];
     
-    // If more than 2 minutes have passed, destroy session and redirect
+    // If more than 3 minutes have passed, destroy session and redirect
     if ($elapsed_time > $timeout_duration) {
         session_unset();
         session_destroy();
@@ -61,13 +61,35 @@ $username = $_SESSION['username'];
         a:hover{
             background:#0056b3;
         }
+
+/* ADDED: Style for the live session badge */
+        .timer-badge {
+            background: #fef3c7;
+            color: #d97706;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid #fde68a;
+        }
+        .timer-badge.warning {
+            background: #fee2e2;
+            color: #dc2626;
+            border-color: #fca5a5;
+        }
+
     </style>
 </head>
 <body>
 
 <div class="box">
     <h2>Welcome, <?php echo htmlspecialchars($username); ?>!</h2>
-
+<!-- ADDED: Live 3-Minute Session Countdown Badge -->
+    <div id="session-badge" class="timer-badge">
+        Session Timeout: <span id="session-timer">03:00</span>
+    </div>
     <p>Login Successful.</p>
 
 <!-- REAL-TIME AUDIT LOG TERMINAL -->
@@ -82,6 +104,43 @@ $username = $_SESSION['username'];
     </div>
     <a href="index.php">Go to Main Website</a>
 </div>
+<!-- ADDED: JavaScript Live Countdown Timer Engine                             -->
+<!-- ========================================================================= -->
+<script>
+let timeRemaining = <?php echo $timeout_duration; ?>; // Pass 180 seconds
 
+function startSessionTimer() {
+    const timerDisplay = document.getElementById("session-timer");
+    const sessionBadge = document.getElementById("session-badge");
+
+    const timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeRemaining / 60);
+        let seconds = timeRemaining % 60;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        if (timerDisplay) {
+            timerDisplay.textContent = `${minutes}:${seconds}`;
+        }
+
+        // Change badge to red warning when 30 seconds left
+        if (timeRemaining <= 30 && sessionBadge) {
+            sessionBadge.classList.add("warning");
+        }
+
+        // Redirect automatically when timer hits zero
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            alert("Your 3-minute session has expired. Please log in again.");
+            window.location.href = "login.php?timeout=1";
+        }
+
+        timeRemaining--;
+    }, 1000);
+}
+
+document.addEventListener("DOMContentLoaded", startSessionTimer);
+</script>
 </body>
 </html>

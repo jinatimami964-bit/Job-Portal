@@ -1,16 +1,28 @@
 
 <?php
 session_start();
-/*
+$timeout_duration = 180;
 if(!isset($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
-} */
+} 
 
-// Setting a fallback username if session is bypassed
-$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
+// ADDED: Check if session has expired (3 minutes passed since last activity)
+
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $timeout_duration) {
+    session_unset();
+    session_destroy();
+    header("Location: login.php?timeout=1");
+    exit();
+}
+// ADDED: Update last activity timestamp on each load/refresh
+// =========================================================================
+$_SESSION['last_activity'] = time();
+
+$username = $_SESSION['username'];
+
 ?>
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,6 +49,12 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
                     <a href="#">Companies</a>
                     <a href="#">Dashboard</a>
                     <span>Welcome, <?php echo htmlspecialchars($username); ?></span>
+                    <!-- ADDED: Session Countdown Display Badge -->
+            <div class="flex items-center gap-2 bg-slate-800/80 border border-amber-500/30 text-amber-400 text-xs px-3 py-1.5 rounded-lg shadow-sm">
+                <span>⏳ Session:</span>
+                <span id="session-timer" class="font-mono font-bold tracking-wider">03:00</span>
+            </div>
+                    
                     <a href="#" id="logout-btn" class="hover:text-red-400 transition">Sign Out</a>
                 </nav>
             </div>
@@ -297,5 +315,92 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
     </div>
     
     <script src="app.js"></script>
+
+ <!-- ADDED: JavaScript to run the 3-minute live countdown timer                -->
+    <!-- ========================================================================= -->
+    <script>
+    const TOTAL_TIMEOUT = <?php echo $timeout_duration; ?>; // 180 seconds (3 mins)
+let timeRemaining = TOTAL_TIMEOUT;
+let timerInterval = null;
+
+function updateTimerUI() {
+    const timerDisplay = document.getElementById("session-timer");
+    if (!timerDisplay) return;
+            let minutes = Math.floor(timeRemaining / 60);
+            let seconds = timeRemaining % 60;
+
+            // Format single digits with leading zero
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+timerDisplay.textContent = `${minutes}:${seconds}`;
+           
+           // Trigger warning alert & terminal log when 30 seconds are left
+        if (timeRemaining > 30) {
+            timerDisplay.parentElement.classList.remove("border-red-500/50", "text-red-400", "animate-pulse");
+        timerDisplay.parentElement.classList.add("border-amber-500/30", "text-amber-400");
+    }
+}
+
+function startSessionTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerUI();
+
+        // Warning state at 30 seconds left
+        if (timeRemaining === 30) {
+            const timerDisplay = document.getElementById("session-timer");
+            if (timerDisplay) {
+                timerDisplay.parentElement.classList.remove("border-amber-500/30", "text-amber-400");
+                timerDisplay.parentElement.classList.add("border-red-500/50", "text-red-400", "animate-pulse");
+            }
+            if (typeof logSystemEvent === "function") {
+                logSystemEvent("Inactivity warning: 30 seconds until session timeout", "WARN");
+            }
+        }
+
+        // Redirect automatically when timer hits 00:00 (true inactivity)
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            if (typeof logSystemEvent === "function") {
+                logSystemEvent("Session terminated due to 3 minutes of total inactivity", "ERROR");
+            }
+            alert("Your session expired due to 3 minutes of inactivity. Please log in again.");
+            window.location.href = "login.php?timeout=1";
+        }
+    }, 1000);
+}
+
+// Reset timer whenever user performs an action (click, keypress, scroll, mouse movement)
+function resetInactivityTimer() {
+    // Only reset if session hasn't already expired
+    if (timeRemaining > 0) {
+        timeRemaining = TOTAL_TIMEOUT;
+        updateTimerUI();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    startSessionTimer();
+
+    // Listen for any user activity across the portal
+    const activityEvents = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart'];
+    
+    // Throttle listener slightly to avoid unnecessary rapid executions
+    let activityTimeout;
+    activityEvents.forEach(eventType => {
+        document.addEventListener(eventType, () => {
+            if (!activityTimeout) {
+                activityTimeout = setTimeout(() => {
+                    resetInactivityTimer();
+                    activityTimeout = null;
+                }, 500); // Resets timer every half-second upon detected activity
+            }
+        }, true);
+    });
+});
+</script>
+               
 </body>
 </html>
