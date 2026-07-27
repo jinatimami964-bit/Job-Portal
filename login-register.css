@@ -1,0 +1,109 @@
+/* ================================
+   COMMON BODY
+================================ */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================================
+   LOGIN & REGISTER FORM
+================================ */
+
+form {
+    width: 300px;
+    background-color: white;
+    padding: 25px;
+    margin: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading */
+
+h2 {
+    width: 350px;
+    margin: 0;
+    padding: 20px 0 10px;
+
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+
+    text-align: center;
+    color: #333;
+}
+
+/* Input fields */
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Button */
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+p {
+    width: 350px;
+    margin: 0;
+    padding: 15px 0 20px;
+
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+/* ================================
+   DASHBOARD BOX
+================================ */
+
+.box {
+    width: 350px;
+    max-width: 90%;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* ================================
+   LINKS
+================================ */
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -27,7 +27,7 @@ $_SESSION['user_id']=$user['id'];
 $_SESSION['username']=$user['username'];
 // --- CHANGED / ADDED LINE BELOW: Track login timestamp for session timeout ---
 $_SESSION['last_activity'] = time();
-header("Location: index.php");
+header("Location: dashboard.php");
 exit();
 
 }else{
@@ -52,6 +52,8 @@ $error="User Not Found";
 <head>
 
 <title>Login</title>
+    <link rel="stylesheet" href="login-register.css">
+
 
 </head>
 
@@ -76,6 +78,7 @@ $error="User Not Found";
 <button type="submit" name="login">Login</button>
 
 </form>
+
 <!-- ADDED: JavaScript function to switch input type between "password" and "text" -->
 <script>
 function togglePasswordVisibility() {
@@ -87,6 +90,12 @@ function togglePasswordVisibility() {
   }
 }
 </script>
+<p style="text-align:center; margin-top:15px; font-family:Arial;">
+    Don't have an account?
+    <a href="register.php" style="color:blue; text-decoration:none; font-weight:bold;">
+        Create account
+    </a>
+
 </body>
 
 </html>

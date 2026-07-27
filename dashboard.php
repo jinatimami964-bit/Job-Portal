@@ -34,6 +34,8 @@ $username = $_SESSION['username'];
 <html>
 <head>
     <title>Dashboard</title>
+    <link rel="stylesheet" href="login-register.css">
+
     <style>
         body{
             font-family: Arial, sans-serif;
