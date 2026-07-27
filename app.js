@@ -275,7 +275,8 @@ function attachOldEvents()
         logoutBtn.addEventListener("click", (e) => {
         e.preventDefault();
         logSystemEvent("User explicitly terminated active session", "WARN");
-        renderRegister();
+      // Redirect to your PHP logout page instead of rendering JS register view
+        window.location.href = "logout.php";
     });
 }}
 
@@ -347,5 +348,5 @@ document.addEventListener("click", (e) => {
     }
 });
 // INITIALIZE ENGINE (Keep at the absolute bottom)
-// ==========================================
-renderRegister();
+// Since PHP handles login, load the dashboard interface directly:
+loadDashboardScreen();

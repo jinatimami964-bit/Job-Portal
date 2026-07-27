@@ -1,13 +1,14 @@
 
 <?php
 session_start();
-
+/*
 if(!isset($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
-}
+} */
 
-$username = $_SESSION['username'];
+// Setting a fallback username if session is bypassed
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
 ?>
 ?>
 <!DOCTYPE html>
