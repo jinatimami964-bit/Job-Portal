@@ -61,12 +61,28 @@ $error="User Not Found";
 
 <input type="email" name="email" placeholder="Email" required><br><br>
 
-<input type="password" name="password" placeholder="Password" required><br><br>
+<!-- ADDED: id="password" so JavaScript can reference it -->
+<input type="password" id="password" name="password" placeholder="Password" required>
+
+<!-- ADDED: Show/Hide Checkbox directly next to the password input -->
+<input type="checkbox" onclick="togglePasswordVisibility()"> Show Password
+
+<br><br>
 
 <button type="submit" name="login">Login</button>
 
 </form>
-
+<!-- ADDED: JavaScript function to switch input type between "password" and "text" -->
+<script>
+function togglePasswordVisibility() {
+  const passwordInput = document.getElementById("password");
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+  } else {
+    passwordInput.type = "password";
+  }
+}
+</script>
 </body>
 
 </html>
