@@ -55,7 +55,7 @@ $username = $_SESSION['username'];
                 <span id="session-timer" class="font-mono font-bold tracking-wider">03:00</span>
             </div>
                     
-                    <a href="#" id="logout-btn" class="hover:text-red-400 transition">Sign Out</a>
+                    <a href="logout.php" id="logout-btn" class="hover:text-red-400 transition">Sign Out</a>
                 </nav>
             </div>
         </header>

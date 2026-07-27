@@ -48,6 +48,7 @@ else {
 <html>
 <head>
     <title>Register</title>
+    <link rel="stylesheet" href="login-register.css">
 </head>
 <body>
 
