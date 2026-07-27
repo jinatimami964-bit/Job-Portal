@@ -181,37 +181,49 @@ function loadDashboardScreen() {
 
     attachOldEvents();
     renderStatsSection();
+    logSystemEvent("User session authenticated and granted portal access", "SUCCESS");
 }
 
 // ==========================================
 // CORE LAYOUT DOM INTERACTION CAPTURES
 // ==========================================
-function attachOldEvents() {
-    document.querySelector(".btn-search").addEventListener("click", () => {
-        alert("Initializing Database Query For Live Global Positions...");
-    });
+function attachOldEvents()
+{
+    const searchBtn = document.querySelector(".btn-search");
+    if (searchBtn) {
+        searchBtn.addEventListener("click", () => {
+            logSystemEvent("Initiated live query on global position database", "INFO");
+            alert("Initializing Database Query For Live Global Positions...");
+        });
+    }
 
     const applyButtons = document.querySelectorAll(".btn-card-apply");
     applyButtons.forEach(btn => {
         btn.addEventListener("click", () => {
+            logSystemEvent("Application token dispatched to target cluster", "SUCCESS");
             alert("Application Stack Transmitted to Selected Corporation Nodes!");
         });
     });
 
     const form = document.querySelector(".newsletter-form");
+    if (form) {
     const input = form.querySelector("input");
-
     form.addEventListener("submit", (e) => {
         e.preventDefault();
+        logSystemEvent(`Subscribed tracking endpoint: ${input.value}`, "INFO");
         alert(`Success! Node tracking connection confirmed for: ${input.value}`);
         input.value = "";
     });
+    }
 
-    document.getElementById("logout-btn").addEventListener("click", (e) => {
+   const logoutBtn = document.getElementById("logout-btn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
         e.preventDefault();
+        logSystemEvent("User explicitly terminated active session", "WARN");
         renderRegister();
     });
-}
+}}
 
 // ==========================================
 // MULTI-PARAM STATS CARD GENERATION
@@ -236,6 +248,7 @@ const systemStats = [
 
 function renderStatsSection() {
     const container = document.getElementById("stats");
+    if (!container) return;
     let html = "";
     systemStats.forEach(item => {
         html += StatsCardComponent(item.name, item.count, item.color);
@@ -244,6 +257,39 @@ function renderStatsSection() {
 }
 
 // ==========================================
-// INITIALIZE ENGINE
+// REAL-TIME SYSTEM AUDIT LOG ENGINE
+// ==========================================
+function logSystemEvent(action, status = "INFO") {
+    const terminal = document.getElementById("audit-log-terminal");
+    if (!terminal) return;
+
+    const time = new Date().toLocaleTimeString();
+    
+    let badgeColor = "#38bdf8"; // INFO (Blue)
+    if (status === "WARN") badgeColor = "#fbbf24"; // WARN (Yellow)
+    if (status === "SUCCESS") badgeColor = "#4ade80"; // SUCCESS (Green)
+    if (status === "ERROR") badgeColor = "#f87171"; // ERROR (Red)
+
+    const logEntry = document.createElement("div");
+    logEntry.style.cssText = "margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px;";
+    logEntry.innerHTML = `
+        <span style="color: #64748b;">[${time}]</span>
+        <span style="color: ${badgeColor}; font-weight: bold; margin: 0 4px;">[${status}]</span>
+        <span style="color: #cbd5e1;">${action}</span>
+    `;
+
+    terminal.prepend(logEntry);
+}
+
+// Clear terminal button handler
+document.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "clear-audit-logs") {
+        const terminal = document.getElementById("audit-log-terminal");
+        if (terminal) {
+            terminal.innerHTML = '<div style="color: #64748b;">[SYSTEM] Terminal logs cleared.</div>';
+        }
+    }
+});
+// INITIALIZE ENGINE (Keep at the absolute bottom)
 // ==========================================
 renderRegister();

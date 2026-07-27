@@ -70,6 +70,16 @@ $username = $_SESSION['username'];
 
     <p>Login Successful.</p>
 
+<!-- REAL-TIME AUDIT LOG TERMINAL -->
+    <div style="margin-top: 20px; text-align: left; background: #1e293b; color: #f8fafc; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-bottom: 10px;">
+            <span style="font-weight: bold; color: #38bdf8;">⚡ Live Security Audit Terminal</span>
+            <button id="clear-audit-logs" style="background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 11px;">Clear</button>
+        </div>
+        <div id="audit-log-terminal" style="max-height: 120px; overflow-y: auto;">
+            <div style="color: #64748b;">[SYSTEM INIT] Terminal active and monitoring...</div>
+        </div>
+    </div>
     <a href="index.php">Go to Main Website</a>
 </div>
 
