@@ -3,7 +3,14 @@
 // ==========================================
 const appContainer = document.getElementById('app');
 const mainDashboard = document.getElementById('main-dashboard');
-
+// ==========================================
+// UTILITY: XSS SANITIZER FOR AUDIT LOGS
+// ==========================================
+function sanitizeHTML(str) {
+    const temp = document.createElement('div');
+    temp.textContent = str;
+    return temp.innerHTML;
+}
 // ==========================================
 // SCREEN 1: REGISTER VIEW RENDERER
 // ==========================================
@@ -77,6 +84,45 @@ function renderSignInPage() {
 
     document.getElementById("back-register").addEventListener("click", renderRegister);
 }
+// ==========================================
+// SCREEN 2.5: 2FA VERIFICATION CODE SCREEN
+// ==========================================
+function render2FAScreen() {
+    appContainer.innerHTML = `
+    <div class="w-full max-w-md bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-700 transition-all duration-300">
+        <header class="mb-6 text-center">
+            <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center text-2xl mx-auto mb-3">🔒</div>
+            <h2 class="text-xl font-bold text-white">Multi-Factor Authentication</h2>
+            <p class="text-slate-400 text-sm mt-1">Enter the 6-digit security code sent to your device.</p>
+        </header>
+
+        <form id="tfa-form" class="space-y-5">
+            <div>
+                <input type="text" id="tfa-code" maxlength="6" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-3 text-center text-2xl font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 transition" placeholder="123456" required>
+                <p id="tfa-error" class="text-red-400 text-xs mt-2 text-center hidden">Invalid code. (Use 123456 for demo)</p>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
+                Verify Identity & Continue
+            </button>
+        </form>
+    </div>
+    `;
+
+    // Handle 2FA verification submit
+    document.getElementById("tfa-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const codeInput = document.getElementById("tfa-code").value.trim();
+        const tfaError = document.getElementById("tfa-error");
+
+        // Demo condition: Accept '123456' or any valid 6-digit number
+        if (codeInput === "123456" || codeInput.length === 6) {
+            showSuccess();
+        } else {
+            tfaError.classList.remove("hidden");
+        }
+    });
+}
 
 // ==========================================
 // CAPTURE AUTHENTICATION EVENTS
@@ -147,7 +193,7 @@ function initRegisterEvents() {
             /[^A-Za-z0-9]/.test(password.value);
 
         if (emailValid && passwordStrong) {
-            showSuccess();
+           render2FAScreen(); // <-- Redirects to 2FA verification instead!
         } else {
             alert("Error: Core security metrics unfulfilled. Please construct a stronger key sequence.");
         }
@@ -181,6 +227,8 @@ function loadDashboardScreen() {
 
     attachOldEvents();
     renderStatsSection();
+    // Log both 2FA verification and login success:
+    logSystemEvent("Multi-Factor Authentication (2FA) challenge passed", "SUCCESS");
     logSystemEvent("User session authenticated and granted portal access", "SUCCESS");
 }
 
@@ -190,7 +238,8 @@ function loadDashboardScreen() {
 function attachOldEvents()
 {
     const searchBtn = document.querySelector(".btn-search");
-    if (searchBtn) {
+  if (searchBtn && !searchBtn.dataset.bound) {
+        searchBtn.dataset.bound = "true";
         searchBtn.addEventListener("click", () => {
             logSystemEvent("Initiated live query on global position database", "INFO");
             alert("Initializing Database Query For Live Global Positions...");
@@ -199,14 +248,18 @@ function attachOldEvents()
 
     const applyButtons = document.querySelectorAll(".btn-card-apply");
     applyButtons.forEach(btn => {
+        if (!btn.dataset.bound) {
+            btn.dataset.bound = "true";
         btn.addEventListener("click", () => {
             logSystemEvent("Application token dispatched to target cluster", "SUCCESS");
             alert("Application Stack Transmitted to Selected Corporation Nodes!");
         });
+    }
     });
 
     const form = document.querySelector(".newsletter-form");
-    if (form) {
+   if (form && !form.dataset.bound) {
+        form.dataset.bound = "true";
     const input = form.querySelector("input");
     form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -217,7 +270,8 @@ function attachOldEvents()
     }
 
    const logoutBtn = document.getElementById("logout-btn");
-    if (logoutBtn) {
+  if (logoutBtn && !logoutBtn.dataset.bound) {
+        logoutBtn.dataset.bound = "true";
         logoutBtn.addEventListener("click", (e) => {
         e.preventDefault();
         logSystemEvent("User explicitly terminated active session", "WARN");
@@ -272,10 +326,12 @@ function logSystemEvent(action, status = "INFO") {
 
     const logEntry = document.createElement("div");
     logEntry.style.cssText = "margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px;";
+   // Sanitize user input to prevent XSS
+    const safeAction = sanitizeHTML(action);
     logEntry.innerHTML = `
         <span style="color: #64748b;">[${time}]</span>
         <span style="color: ${badgeColor}; font-weight: bold; margin: 0 4px;">[${status}]</span>
-        <span style="color: #cbd5e1;">${action}</span>
+       <span style="color: #cbd5e1;">${safeAction}</span
     `;
 
     terminal.prepend(logEntry);
