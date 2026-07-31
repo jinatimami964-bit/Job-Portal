@@ -99,6 +99,11 @@ function togglePasswordVisibility() {
         Create account
     </a>
 
+    <div id="app" class="hidden"></div>
+<div id="main-dashboard" class="hidden"></div>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="app.js"></script>
 </body>
 
 </html>
