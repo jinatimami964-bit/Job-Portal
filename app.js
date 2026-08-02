@@ -246,16 +246,53 @@ function attachOldEvents()
         });
     }
 
-    const applyButtons = document.querySelectorAll(".btn-card-apply");
-    applyButtons.forEach(btn => {
-        if (!btn.dataset.bound) {
-            btn.dataset.bound = "true";
-        btn.addEventListener("click", () => {
-            logSystemEvent("Application token dispatched to target cluster", "SUCCESS");
-            alert("Application Stack Transmitted to Selected Corporation Nodes!");
+
+
+    //added new application button 
+    
+// ==========================================
+// APPLY NOW BUTTON
+// ==========================================
+const applyButtons = document.querySelectorAll(".btn-card-apply");
+
+applyButtons.forEach(btn => {
+
+    btn.addEventListener("click", function () {
+
+        const jobId = this.getAttribute("data-job-id");
+
+        console.log("Apply button clicked");
+        console.log("Job ID:", jobId);
+
+        fetch("apply.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "job_id=" + encodeURIComponent(jobId)
+        })
+
+        .then(response => {
+            console.log("Response received");
+            return response.text();
+        })
+
+        .then(data => {
+            console.log("Server response:", data);
+            alert(data);
+        })
+
+        .catch(error => {
+            console.error("Fetch Error:", error);
+            alert("Application failed!");
         });
-    }
+
     });
+
+});
+
+
+ 
 
     const form = document.querySelector(".newsletter-form");
    if (form && !form.dataset.bound) {
