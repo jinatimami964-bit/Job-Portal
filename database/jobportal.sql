@@ -6,6 +6,13 @@ create table users(
     email varchar(100) NOT NULL,
     password varchar(100) NOT NULL
     );
+
+    CREATE TABLE companies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    company_name VARCHAR(100) NOT NULL,
+    location VARCHAR(100) NOT NULL
+);
+
 CREATE TABLE jobs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     company_id INT NOT NULL,
