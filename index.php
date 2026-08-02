@@ -1,6 +1,7 @@
 
 <?php
 session_start();
+include "db_connect.php";
 $timeout_duration = 180;
 if(!isset($_SESSION['user_id'])){
     header("Location: login.php");
@@ -20,6 +21,18 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) >
 $_SESSION['last_activity'] = time();
 
 $username = $_SESSION['username'];
+$jobs = mysqli_query($conn, "
+    SELECT 
+        jobs.title,
+        jobs.job_type,
+        jobs.location,
+        jobs.salary,
+        jobs.description,
+        companies.company_name
+    FROM jobs
+    JOIN companies
+    ON jobs.company_id = companies.id
+");
 
 ?>
 
@@ -272,6 +285,59 @@ $username = $_SESSION['username'];
                         <button type="button" class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
                     </div>
                 </article>
+                <?php while($job = mysqli_fetch_assoc($jobs)) { ?>
+
+    <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+
+        <div>
+
+            <div class="flex justify-between items-center mb-3">
+
+                <span class="bg-blue-500/10 text-blue-400 text-xs font-semibold px-2.5 py-1 rounded">
+                    <?php echo htmlspecialchars($job['job_type']); ?>
+                </span>
+
+                <span class="company-logo-stub text-lg">💼</span>
+
+            </div>
+
+            <h4 class="font-bold text-white text-base">
+                <?php echo htmlspecialchars($job['title']); ?>
+            </h4>
+
+            <p class="text-slate-400 text-xs mb-3">
+                <?php echo htmlspecialchars($job['company_name']); ?>
+            </p>
+
+            <p class="text-slate-300 text-sm mb-4">
+                <?php echo htmlspecialchars($job['description']); ?>
+            </p>
+
+        </div>
+
+        <div>
+
+            <div class="flex justify-between text-xs text-slate-400 border-t border-slate-700/50 pt-3 mb-4">
+
+                <span>
+                    📍 <?php echo htmlspecialchars($job['location']); ?>
+                </span>
+
+                <span class="text-emerald-400 font-medium">
+                    💰 <?php echo htmlspecialchars($job['salary']); ?>
+                </span>
+
+            </div>
+
+            <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">
+                Apply Now
+            </button>
+
+        </div>
+
+    </article>
+
+<?php } ?>
 
             </div>
         </main>
