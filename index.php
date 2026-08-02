@@ -60,8 +60,8 @@ $jobs = mysqli_query($conn, "
                 </div>
                 <nav class="nav-links flex gap-6 text-sm font-medium text-slate-400">
                     <a href="#" class="text-blue-400 underline underline-offset-4">Find Jobs</a>
-                    <a href="#">Companies</a>
-                    <a href="#">Dashboard</a>
+                    <a href="companies.php">Companies</a>
+                    <a href="dashboard.php">Dashboard</a>
                     <span>Welcome, <?php echo htmlspecialchars($username); ?></span>
                     <!-- ADDED: Session Countdown Display Badge -->
             <div class="flex items-center gap-2 bg-slate-800/80 border border-amber-500/30 text-amber-400 text-xs px-3 py-1.5 rounded-lg shadow-sm">
