@@ -23,6 +23,7 @@ $_SESSION['last_activity'] = time();
 $username = $_SESSION['username'];
 $jobs = mysqli_query($conn, "
     SELECT 
+        jobs.id,
         jobs.title,
         jobs.job_type,
         jobs.location,
@@ -115,7 +116,7 @@ $jobs = mysqli_query($conn, "
 
             <div class="job-feed-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
+              <!-- <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-3">
                             <span class="bg-blue-500/10 text-blue-400 text-xs font-semibold px-2.5 py-1 rounded">Full-Time</span>
@@ -284,7 +285,7 @@ $jobs = mysqli_query($conn, "
                         </div>
                         <button type="button" class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
                     </div>
-                </article>
+                </article>  -->
                 <?php while($job = mysqli_fetch_assoc($jobs)) { ?>
 
     <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
@@ -329,9 +330,11 @@ $jobs = mysqli_query($conn, "
 
             </div>
 
-            <button class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">
-                Apply Now
-            </button>
+            <button 
+    class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium"
+    data-job-id="<?php echo $job['id']; ?>">
+    Apply Now
+</button>
 
         </div>
 

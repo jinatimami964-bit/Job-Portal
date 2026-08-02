@@ -84,3 +84,36 @@ SELECT
 FROM jobs
 JOIN companies
 ON jobs.company_id = companies.id;
+
+
+CREATE TABLE applications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    job_id INT NOT NULL,
+    status VARCHAR(50) DEFAULT 'Pending',
+    applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (job_id) REFERENCES jobs(id)
+);
+
+
+SELECT 
+    applications.id AS application_id,
+    users.username,
+    users.email,
+    jobs.title AS job_title,
+    companies.company_name,
+    applications.status,
+    applications.applied_at
+
+FROM applications
+
+JOIN users 
+ON applications.user_id = users.id
+
+JOIN jobs 
+ON applications.job_id = jobs.id
+
+JOIN companies
+ON jobs.company_id = companies.id;
