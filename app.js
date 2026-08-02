@@ -28,10 +28,14 @@ function renderRegister() {
         </header>
 
         <main>
-            <form id="registration-form" class="space-y-5">
-                <div>
+            <form id="registration-form" method="POST" action="register.php" class="space-y-5">
+             <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Username</label>
+                    <input type="text" name="username" id="user-name" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition" placeholder="johndoe" required>
+                </div>  
+            <div>
                     <label class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
-                    <input type="email" id="user-email" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition" placeholder="you@example.com" required>
+                    <input type="email" name="email" id="user-email" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition" placeholder="you@example.com" required>
                     <p id="email-error" class="text-red-400 text-xs mt-1 hidden">Please enter a valid email address.</p>
                 </div>
 
@@ -380,13 +384,18 @@ function logSystemEvent(action, status = "INFO") {
     terminal.prepend(logEntry);
 }
 
-// Clear terminal button handler
-document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clear-audit-logs") {
-        const terminal = document.getElementById("audit-log-terminal");
-        if (terminal) {
-            terminal.innerHTML = '<div style="color: #64748b;">[SYSTEM] Terminal logs cleared.</div>';
-        }
+// SAFE INITIALIZATION (Add to the bottom of app.js)
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    // Only bind audit log clear button if terminal exists
+    const clearBtn = document.getElementById("clear-audit-logs");
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+            const terminal = document.getElementById("audit-log-terminal");
+            if (terminal) {
+                terminal.innerHTML = '<div style="color: #64748b;">[SYSTEM] Terminal logs cleared.</div>';
+            }
+        });
     }
 });
 // INITIALIZE ENGINE (Keep at the absolute bottom)
