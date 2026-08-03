@@ -8,6 +8,9 @@ if(isset($_POST['register'])){
     $username = $_POST['username'];
     $email = $_POST['email'];
     $raw_password = $_POST['password'];
+    $role = $_POST['role']; // 'user' or 'admin'
+    // Choose target table based on role
+    $table = ($role === 'admin') ? 'admin' : 'users';
        // --- ADDED: Backend Password Validation Matching app.js Rules ---
     $has_min_len = strlen($raw_password) >= 8;
     $has_uppercase = preg_match('/[A-Z]/', $raw_password);
@@ -18,17 +21,21 @@ if(isset($_POST['register'])){
         $message = "Password does not meet safety standards! (Min 8 chars, 1 uppercase, 1 digit, 1 special char required).";
     } 
 else {
-    $check = mysqli_query($conn,"SELECT * FROM users WHERE email='$email'");
+    $check = mysqli_query($conn,"SELECT * FROM $table WHERE email='$email'");
 
     if(mysqli_num_rows($check)>0){
 
-        $message = "Email already exists!";
+        $message = "Email already exists in $role database!!";
 
     }else{
   $password = password_hash($raw_password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO users(username,email,password)
-                VALUES('$username','$email','$password')";
+       // FIXED: Dynamically insert based on role table
+            if ($role === 'admin') {
+                $sql = "INSERT INTO admin(username, email, password) VALUES('$username', '$email', '$password')";
+            } else {
+                $sql = "INSERT INTO users(username, email, password, role) VALUES('$username', '$email', '$password', 'user')";
+            }
                
 
 
@@ -58,6 +65,11 @@ else {
 
 <form method="POST">
 
+<label for="role">Register As:</label><br>
+<select name="role" id="role" required style="padding:8px; margin-bottom:10px;">
+    <option value="user">User</option>
+    <option value="admin">Admin</option>
+</select><br><br>
 <input type="text" name="username" placeholder="Username" required><br><br>
 
 <input type="email" name="email" placeholder="Email" required><br><br>

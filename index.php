@@ -7,6 +7,8 @@ if(!isset($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
 } 
+$username = $_SESSION['username'];
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : 'user'; // Read role
 
 // ADDED: Check if session has expired (3 minutes passed since last activity)
 
@@ -62,6 +64,12 @@ $jobs = mysqli_query($conn, "
                     <a href="#" class="text-blue-400 underline underline-offset-4">Find Jobs</a>
                     <a href="companies.php">Companies</a>
                     <a href="dashboard.php">Dashboard</a>
+                    <!-- Show Admin Panel Link if user is an Admin -->
+    <?php if ($role === 'admin'): ?>
+        <a href="admin.php" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md font-bold transition">
+            ⚙️ Admin Panel
+        </a>
+    <?php endif; ?>
                     <span>Welcome, <?php echo htmlspecialchars($username); ?></span>
                     <!-- ADDED: Session Countdown Display Badge -->
             <div class="flex items-center gap-2 bg-slate-800/80 border border-amber-500/30 text-amber-400 text-xs px-3 py-1.5 rounded-lg shadow-sm">

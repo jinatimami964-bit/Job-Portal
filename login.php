@@ -3,6 +3,10 @@ session_start();
 include "db_connect.php";
 
 $error = "";
+// Display alert if redirected from admin check
+if (isset($_GET['msg']) && $_GET['msg'] === 'admin_not_registered') {
+    $error = "Admin account not found. Please register first!";
+}
 // ADDED: Check if redirected from a 3-minute session timeout
 // =========================================================================
 if (isset($_GET['timeout'])) {
@@ -12,8 +16,10 @@ if(isset($_POST['login'])){
 
 $email = $_POST['email'];
 $password = $_POST['password'];
+$role = $_POST['role'];
 
-$sql = "SELECT * FROM users WHERE email='$email'";
+    $table = ($role === 'admin') ? 'admin' : 'users';
+$sql = "SELECT * FROM $table WHERE email='$email'";
 
 $result = mysqli_query($conn,$sql);
 
@@ -30,20 +36,32 @@ if(password_verify($password, $user['password'])){
     $_SESSION['username'] = $user['username'];
     $_SESSION['last_activity'] = time();
 
-    header("Location: dashboard.php");
-    exit();
+    $_SESSION['role'] = $role; // Set session role
+
+            // Redirect based on role
+            if ($role === 'admin') {
+                header("Location: admin.php");
+            } else {
+                header("Location: index.php");
+            }
+            exit();
 
 }else{
 
 $error="Wrong Password";
 
 }
-
 }else{
+// Redirect to Register page if Admin is not registered
+        if ($role === 'admin') {
+            header("Location: register.php?msg=admin_not_registered");
+            exit();
+        }
+else{
 
 $error="User Not Found";
 
-}
+}}
 
 }
 ?>
@@ -67,6 +85,11 @@ $error="User Not Found";
 <?php echo $error; ?>
 
 <form method="POST">
+<label for="role">Login As:</label><br>
+<select name="role" id="role" required style="padding:8px; margin-bottom:10px;">
+    <option value="user">User</option>
+    <option value="admin">Admin</option>
+</select><br><br>
 
 <input type="email" name="email" placeholder="Email" required><br><br>
 
