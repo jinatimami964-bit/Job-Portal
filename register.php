@@ -48,30 +48,25 @@ else {
 <html>
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="login-register.css">
+   <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-slate-900 text-white font-sans min-h-screen flex flex-col items-center justify-center p-4">
 
-<h2>Create Account</h2>
+    <!-- Single container target where app.js mounts the complete form & audit terminal -->
+    <div id="app" class="w-full flex flex-col items-center"></div>
 
-<?php echo $message; ?>
+    <?php if(!empty($message)): ?>
+        <!-- Safe JS alert dispatch -->
+        <script>
+            setTimeout(() => { alert("<?php echo addslashes($message); ?>"); }, 100);
+        </script>
+    <?php endif; ?>
 
-<form method="POST">
 
-<input type="text" name="username" placeholder="Username" required><br><br>
-
-<input type="email" name="email" placeholder="Email" required><br><br>
-
-<input type="password" name="password" placeholder="Password" required><br><br>
-
-<button type="submit" name="register">Register</button>
-
-</form>
-<p style="text-align:center; margin-top:15px; font-family:Arial;">
-    Already have an account?
-    <a href="login.php" style="color:blue; text-decoration:none; font-weight:bold;">
-        Log In
-    </a>
-</p>
+    <script src="app.js"></script>
+    <script>
+        renderRegister();
+    </script>
 </body>
 </html>

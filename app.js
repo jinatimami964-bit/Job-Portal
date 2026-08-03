@@ -15,6 +15,7 @@ function sanitizeHTML(str) {
 // SCREEN 1: REGISTER VIEW RENDERER
 // ==========================================
 function renderRegister() {
+    if (!appContainer) return;
     // Hide dashboard view container while authenticating
     mainDashboard.classList.add('hidden');
     appContainer.classList.remove('hidden');
@@ -27,10 +28,14 @@ function renderRegister() {
         </header>
 
         <main>
-            <form id="registration-form" class="space-y-5">
-                <div>
+            <form id="registration-form" method="POST" action="register.php" class="space-y-5">
+             <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Username</label>
+                    <input type="text" name="username" id="user-name" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition" placeholder="johndoe" required>
+                </div>  
+            <div>
                     <label class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
-                    <input type="email" id="user-email" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition" placeholder="you@example.com" required>
+                    <input type="email" name="email" id="user-email" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition" placeholder="you@example.com" required>
                     <p id="email-error" class="text-red-400 text-xs mt-1 hidden">Please enter a valid email address.</p>
                 </div>
 
@@ -41,21 +46,44 @@ function renderRegister() {
                             Requirements &rarr;
                         </span>
                     </div>
-                    <input type="password" id="user-password" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition" placeholder="••••••••" required>
+<!-- Password Field with Show/Hide Toggle -->
+                    <div class="relative">
+                        <input type="password" name="password" id="user-password" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition pr-10" placeholder="••••••••" required>
+                        <button type="button" id="toggle-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-sm focus:outline-none">
+                            👁️
+                        </button>
+                    </div>
 
+                    <!-- Password Strength Meter -->
                     <div class="h-1.5 bg-slate-700 rounded-full mt-3 overflow-hidden">
                         <div id="strength-meter" class="h-full w-0 bg-red-500 transition-all duration-300"></div>
                     </div>
                     <p id="strength-text" class="text-xs text-slate-400 mt-1">Strength: Empty</p>
                 </div>
 
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200 shadow-lg shadow-blue-900/30">
+               <button type="submit" name="register" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200 shadow-lg shadow-blue-900/30 mt-2">
                     Create Account
                 </button>
             </form>
+            <p class="text-center text-sm text-slate-400 mt-4">
+                Already have an account?
+                <a href="login.php" class="text-blue-400 hover:underline font-semibold">Log In</a>
+            </p>
         </main>
     </div>
+
+    <!-- REAL-TIME AUDIT LOG TERMINAL -->
+    <div class="w-full max-w-md mt-4 bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-2">
+            <span class="text-slate-400 font-semibold">System Audit Terminal</span>
+            <button id="clear-audit-logs" class="text-slate-500 hover:text-slate-300">Clear</button>
+        </div>
+        <div id="audit-log-terminal" class="max-h-32 overflow-y-auto space-y-1 text-slate-300">
+            <div style="color: #64748b;">[SYSTEM] Registration monitor initialized...</div>
+        </div>
+    </div>
     `;
+                  
 
     initRegisterEvents();
 }
@@ -131,12 +159,27 @@ function initRegisterEvents() {
     const email = document.getElementById("user-email");
     const emailError = document.getElementById("email-error");
     const password = document.getElementById("user-password");
+    const toggleBtn = document.getElementById("toggle-password");
     const meter = document.getElementById("strength-meter");
     const text = document.getElementById("strength-text");
     const form = document.getElementById("registration-form");
+if (document.getElementById("go-signin")) {
+        document.getElementById("go-signin").addEventListener("click", () => {
+            logSystemEvent("Navigated to Password Security Protocols", "INFO");
+            renderSignInPage();
+        });
+    }
 
-    document.getElementById("go-signin").addEventListener("click", renderSignInPage);
-
+    // SHOW / HIDE PASSWORD TOGGLE
+    if (toggleBtn && password) {
+        toggleBtn.addEventListener("click", () => {
+            const isPassword = password.type === "password";
+            password.type = isPassword ? "text" : "password";
+            toggleBtn.textContent = isPassword ? "🙈" : "👁️";
+            logSystemEvent(`Password visibility set to: ${isPassword ? 'Visible' : 'Hidden'}`, "INFO");
+        });
+    }
+    
     // EMAIL ANALYSERS
     email.addEventListener("input", () => {
         const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
@@ -168,6 +211,7 @@ function initRegisterEvents() {
             meter.className = "h-full bg-red-500";
             text.textContent = "Weak Ruleset";
             text.className = "text-xs text-red-400 mt-1";
+            logSystemEvent("Weak password evaluated", "WARN");
         } else if (score <= 3) {
             meter.style.width = "60%";
             meter.className = "h-full bg-yellow-500";
@@ -178,6 +222,8 @@ function initRegisterEvents() {
             meter.className = "h-full bg-green-500";
             text.textContent = "Strong Passkey";
             text.className = "text-xs text-green-400 mt-1";
+            logSystemEvent("Strong password parameters verified", "SUCCESS");
+            
         }
     });
 
@@ -375,15 +421,20 @@ function logSystemEvent(action, status = "INFO") {
     terminal.prepend(logEntry);
 }
 
-// Clear terminal button handler
-document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clear-audit-logs") {
-        const terminal = document.getElementById("audit-log-terminal");
-        if (terminal) {
-            terminal.innerHTML = '<div style="color: #64748b;">[SYSTEM] Terminal logs cleared.</div>';
-        }
+// SAFE INITIALIZATION (Add to the bottom of app.js)
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    // Only bind audit log clear button if terminal exists
+    const clearBtn = document.getElementById("clear-audit-logs");
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+            const terminal = document.getElementById("audit-log-terminal");
+            if (terminal) {
+                terminal.innerHTML = '<div style="color: #64748b;">[SYSTEM] Terminal logs cleared.</div>';
+            }
+        });
     }
 });
 // INITIALIZE ENGINE (Keep at the absolute bottom)
 // Since PHP handles login, load the dashboard interface directly:
-loadDashboardScreen();
+//loadDashboardScreen();

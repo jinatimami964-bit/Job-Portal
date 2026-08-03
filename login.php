@@ -55,50 +55,72 @@ $error="User Not Found";
 <head>
 
 <title>Login</title>
-    <link rel="stylesheet" href="login-register.css">
+   <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
 
 
 </head>
 
-<body>
+<bodyclass="bg-slate-900 text-white font-sans min-h-screen flex flex-col items-center justify-center p-4">
 
-<h2>Login</h2>
+    <!-- Container matching register layout -->
+    <div class="w-full max-w-md bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-700">
+        
+        <header class="mb-6 text-center">
+            <h1 class="text-2xl font-extrabold text-blue-400">AOSH <span class="text-white">Portal</span></h1>
+            <p class="text-slate-400 text-sm mt-1">Account Authentication</p>
+        </header>
 
-<?php echo $error; ?>
+        <!-- Display Error Banner if error exists -->
+        <?php if(!empty($error)): ?>
+            <div class="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm text-center">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
 
-<form method="POST">
+        <form method="POST" action="login.php" class="space-y-5">
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
+                <input type="email" name="email" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition" placeholder="you@example.com" required>
+            </div>
 
-<input type="email" name="email" placeholder="Email" required><br><br>
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Password</label>
+                <div class="relative">
+                    <input type="password" id="password" name="password" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition pr-10" placeholder="••••••••" required>
+                </div>
+                
+                <div class="flex items-center gap-2 mt-2">
+                    <input type="checkbox" id="show-pass" onclick="togglePasswordVisibility()" class="rounded bg-slate-900 border-slate-600 text-blue-600 focus:ring-0 cursor-pointer">
+                    <label for="show-pass" class="text-xs text-slate-400 cursor-pointer select-none">Show Password</label>
+                </div>
+            </div>
 
-<!-- ADDED: id="password" so JavaScript can reference it -->
-<input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit" name="login" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200 shadow-lg shadow-blue-900/30">
+                Log In
+            </button>
+        </form>
 
-<!-- ADDED: Show/Hide Checkbox directly next to the password input -->
-<input type="checkbox" onclick="togglePasswordVisibility()"> Show Password
-
-<br><br>
-
-<button type="submit" name="login">Login</button>
-
-</form>
-
-<!-- ADDED: JavaScript function to switch input type between "password" and "text" -->
-<script>
-function togglePasswordVisibility() {
-  const passwordInput = document.getElementById("password");
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-  } else {
-    passwordInput.type = "password";
-  }
-}
-</script>
-<p style="text-align:center; margin-top:15px; font-family:Arial;">
+<p class="text-align:center; margin-top:15px; font-family:Arial;">
     Don't have an account?
     <a href="register.php" style="color:blue; text-decoration:none; font-weight:bold;">
         Create account
     </a>
-
+</p>
+    </div>
+    <div id="app" class="hidden"></div>
+<div id="main-dashboard" class="hidden"></div>
+<script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("password");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    }
+</script>
+<script src="app.js"></script>
 </body>
 
 </html>
