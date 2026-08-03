@@ -42,7 +42,7 @@ if(password_verify($password, $user['password'])){
             if ($role === 'admin') {
                 header("Location: admin.php");
             } else {
-                header("Location: index.php");
+                header("Location: dashboard.php");
             }
             exit();
 
