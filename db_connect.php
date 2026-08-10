@@ -15,5 +15,5 @@ try {
 } catch (PDOException $e) {
     // Error Details 
     die("Database Connection Failed: " . $e->getMessage());
-
+}
 ?>
