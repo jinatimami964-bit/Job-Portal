@@ -22,7 +22,6 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) >
 // =========================================================================
 $_SESSION['last_activity'] = time();
 
-$username = $_SESSION['username'];
 // SECURE: PDO Query Execution
 $stmt = $pdo->query("
     SELECT 
@@ -295,8 +294,8 @@ $jobs = $stmt->fetchAll();
                         <button type="button" class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
                     </div>
                 </article>  -->
-               <?php foreach ($jobs as $job)  { ?>
 
+              <?php foreach ($jobs as $job) { ?>
     <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
 
         <div>
