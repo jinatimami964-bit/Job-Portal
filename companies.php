@@ -7,9 +7,14 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+// SECURE: Fetching company details using PDO
+try {
+    $stmt = $pdo->query("SELECT * FROM companies");
+    $companies = $stmt->fetchAll();
+} catch (PDOException $e) {
+    $companies = [];
+}
 
-// Get all companies from database
-$companies = mysqli_query($conn, "SELECT * FROM companies");
 ?>
 
 <!DOCTYPE html>
