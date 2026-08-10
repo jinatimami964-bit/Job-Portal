@@ -23,7 +23,8 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) >
 $_SESSION['last_activity'] = time();
 
 $username = $_SESSION['username'];
-$jobs = mysqli_query($conn, "
+// SECURE: PDO Query Execution
+$stmt = $pdo->query("
     SELECT 
         jobs.id,
         jobs.title,
@@ -33,9 +34,9 @@ $jobs = mysqli_query($conn, "
         jobs.description,
         companies.company_name
     FROM jobs
-    JOIN companies
-    ON jobs.company_id = companies.id
+    JOIN companies ON jobs.company_id = companies.id
 ");
+$jobs = $stmt->fetchAll();
 
 ?>
 
