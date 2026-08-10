@@ -16,13 +16,21 @@ if (!isset($_POST['job_id']) || empty($_POST['job_id'])) {
 $user_id = $_SESSION['user_id'];
 $job_id = $_POST['job_id'];
 
-$sql = "INSERT INTO applications (user_id, job_id)
-        VALUES ('$user_id', '$job_id')";
 
-if (mysqli_query($conn, $sql)) {
-    echo "Application submitted successfully!";
-} else {
-    echo "Application failed: " . mysqli_error($conn);
+try {
+    $stmt = $pdo->prepare("INSERT INTO applications (user_id, job_id) VALUES (:user_id, :job_id)");
+    $success = $stmt->execute([
+        'user_id' => $user_id,
+        'job_id'  => $job_id
+    ]);
+
+    if ($success) {
+        echo "Application submitted successfully!";
+    } else {
+        echo "Application failed";
+    }
+} catch (PDOException $e) {
+    echo "Application failed: " . $e->getMessage();
 }
 
 ?>
