@@ -19,13 +19,14 @@ $password = $_POST['password'];
 $role = $_POST['role'];
 
     $table = ($role === 'admin') ? 'admin' : 'users';
-$sql = "SELECT * FROM $table WHERE email='$email'";
+//$sql = "SELECT * FROM $table WHERE email='$email'";
 
-$result = mysqli_query($conn,$sql);
+//$result = mysqli_query($conn,$sql);
+$stmt = $pdo->prepare("SELECT * FROM $table WHERE email = :email");
+    $stmt->execute(['email' => $email]);
+    $user = $stmt->fetch();
 
-if(mysqli_num_rows($result)==1){
-
-$user = mysqli_fetch_assoc($result);
+if($user){
 
 if(password_verify($password, $user['password'])){
 
@@ -81,9 +82,7 @@ $error="User Not Found";
 <body>
 
 <h2>Login</h2>
-
-<?php echo $error; ?>
-
+<p style="color:red;"><?php echo htmlspecialchars($error); ?></p>
 <form method="POST">
 <label for="role">Login As:</label><br>
 <select name="role" id="role" required style="padding:8px; margin-bottom:10px;">
@@ -121,6 +120,7 @@ function togglePasswordVisibility() {
     <a href="register.php" style="color:blue; text-decoration:none; font-weight:bold;">
         Create account
     </a>
+    </p>
 
 </body>
 
