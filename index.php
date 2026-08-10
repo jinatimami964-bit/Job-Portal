@@ -295,7 +295,7 @@ $jobs = $stmt->fetchAll();
                         <button type="button" class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium">Apply Now</button>
                     </div>
                 </article>  -->
-                <?php while($job = mysqli_fetch_assoc($jobs)) { ?>
+               <?php foreach ($jobs as $job)  { ?>
 
     <article class="job-card-premium bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-lg flex flex-col justify-between">
 
@@ -341,7 +341,7 @@ $jobs = $stmt->fetchAll();
 
             <button 
     class="btn-card-apply w-full bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm transition font-medium"
-    data-job-id="<?php echo $job['id']; ?>">
+    data-job-id="<?php echo(int)$job['id']; ?>">
     Apply Now
 </button>
 
