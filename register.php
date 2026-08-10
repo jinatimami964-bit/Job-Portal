@@ -65,7 +65,6 @@ else {
 </head>
 <body class="bg-slate-900 text-white font-sans min-h-screen flex flex-col items-center justify-center p-4">
 
-<<<<<<< HEAD
 <h2>Create Account</h2>
     <!-- XSS Protection with htmlspecialchars -->
 <?php if (!empty($message)): ?>
@@ -92,7 +91,6 @@ else {
         Log In
     </a>
 </p>
-=======
     <!-- Single container target where app.js mounts the complete form & audit terminal -->
     <div id="app" class="w-full flex flex-col items-center"></div>
 
@@ -108,6 +106,5 @@ else {
     <script>
         renderRegister();
     </script>
->>>>>>> Atia
 </body>
 </html>

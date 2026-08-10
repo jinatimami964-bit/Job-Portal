@@ -14,8 +14,8 @@ if (isset($_GET['timeout'])) {
 }
 if(isset($_POST['login'])){
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+$email = trim($_POST['email']);
+$password = trim($_POST['password']);
 $role = $_POST['role'];
 
     $table = ($role === 'admin') ? 'admin' : 'users';
@@ -43,7 +43,7 @@ if(password_verify($password, $user['password'])){
             if ($role === 'admin') {
                 header("Location: admin.php");
             } else {
-                header("Location: dashboard.php");
+                header("Location: index.php");
             }
             exit();
 
@@ -80,18 +80,8 @@ $error="User Not Found";
 
 </head>
 
-<bodyclass="bg-slate-900 text-white font-sans min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-slate-900 text-white font-sans min-h-screen flex flex-col items-center justify-center p-4">
 
-<<<<<<< HEAD
-<h2>Login</h2>
-<p style="color:red;"><?php echo htmlspecialchars($error); ?></p>
-<form method="POST">
-<label for="role">Login As:</label><br>
-<select name="role" id="role" required style="padding:8px; margin-bottom:10px;">
-    <option value="user">User</option>
-    <option value="admin">Admin</option>
-</select><br><br>
-=======
     <!-- Container matching register layout -->
     <div class="w-full max-w-md bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-700">
         
@@ -109,13 +99,19 @@ $error="User Not Found";
 
         <form method="POST" action="login.php" class="space-y-5">
             <div>
+                <label for="role" class="block text-sm font-medium text-slate-300 mb-1">Login As</label>
+                <select name="role" id="role" required class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition cursor-pointer">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div>
                 <label class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
                 <input type="email" name="email" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition" placeholder="you@example.com" required>
             </div>
->>>>>>> Atia
 
             <div>
-                <label class="block text-sm font-medium text-slate-300 mb-1">Password</label>
+                <label for="password" class="block text-sm font-medium text-slate-300 mb-1">Password</label>
                 <div class="relative">
                     <input type="password" id="password" name="password" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500 transition pr-10" placeholder="••••••••" required>
                 </div>
@@ -136,10 +132,8 @@ $error="User Not Found";
     <a href="register.php" style="color:blue; text-decoration:none; font-weight:bold;">
         Create account
     </a>
-<<<<<<< HEAD
     </p>
 
-=======
 </p>
     </div>
     <div id="app" class="hidden"></div>
@@ -155,7 +149,6 @@ $error="User Not Found";
     }
 </script>
 <script src="app.js"></script>
->>>>>>> Atia
 </body>
 
 </html>
