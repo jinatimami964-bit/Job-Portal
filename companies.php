@@ -86,10 +86,10 @@ try {
     <!-- Companies Grid -->
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <?php if (mysqli_num_rows($companies) > 0) { ?>
+        <?php if (count($companies) > 0) { ?>
+        <?php foreach ($companies as $company) { ?>
 
-            <?php while ($company = mysqli_fetch_assoc($companies)) { ?>
-
+            
                 <div class="bg-slate-800 border border-slate-700 p-6 rounded-xl shadow-lg hover:border-blue-500 transition">
 
                     <!-- Company Icon -->

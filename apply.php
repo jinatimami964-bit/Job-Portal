@@ -16,7 +16,6 @@ if (!isset($_POST['job_id']) || empty($_POST['job_id'])) {
 $user_id = $_SESSION['user_id'];
 $job_id = $_POST['job_id'];
 
-
 try {
     $stmt = $pdo->prepare("INSERT INTO applications (user_id, job_id) VALUES (:user_id, :job_id)");
     $success = $stmt->execute([
