@@ -3,19 +3,19 @@ use jobportal;
 create table users(
     id INT AUTO_INCREMENT PRIMARY KEY,
     username varchar(100) NOT NULL,
-    email varchar(100) NOT NULL,
-    password varchar(100) NOT NULL,
+    email varchar(100) NOT NULL UNIQUE,
+    password varchar(255) NOT NULL,
     role ENUM('user', 'admin') DEFAULT 'user'
     );
 --Admin Table (New table for admin accounts)
-CREATE TABLE IF NOT EXISTS admin (
+/*CREATE TABLE IF NOT EXISTS admin (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
+*/
     CREATE TABLE companies (
     id INT AUTO_INCREMENT PRIMARY KEY,
     company_name VARCHAR(100) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE jobs (
     description TEXT,
     
     FOREIGN KEY (company_id) 
-    REFERENCES companies(id)
+    REFERENCES companies(id) ON DELETE CASCADE
 );
 INSERT INTO companies (company_name, location)
 VALUES
@@ -102,8 +102,8 @@ CREATE TABLE applications (
     status VARCHAR(50) DEFAULT 'Pending',
     applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (job_id) REFERENCES jobs(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE
 );
 
 

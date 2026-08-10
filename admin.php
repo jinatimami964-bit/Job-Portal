@@ -7,8 +7,29 @@ if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'
     header("Location: login.php");
     exit();
 }
-
-$username = $_SESSION['username'];
+$username = $_SESSION['username'] ?? 'Admin';
+// Fetch applications securely using PDO
+try {
+    $sql = "SELECT 
+                a.id AS application_id, 
+                u.username AS name, 
+                u.email AS email, 
+                j.title AS job_title, 
+                c.company_name,
+                a.status,
+                a.applied_at
+            FROM applications a
+            JOIN users u ON a.user_id = u.id
+            JOIN jobs j ON a.job_id = j.id
+            LEFT JOIN companies c ON j.company_id = c.id
+            ORDER BY a.id DESC";
+    
+    $stmt = $pdo->query($sql);
+    $applications = $stmt->fetchAll();
+} catch (PDOException $e) {
+    error_log($e->getMessage());
+    $applications = [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +52,8 @@ $username = $_SESSION['username'];
             </div>
             <nav class="flex items-center gap-6 text-sm font-medium">
                 <a href="index.php" class="text-slate-400 hover:text-white transition">View Public Portal</a>
-                <span class="text-blue-400">Welcome, <?php echo htmlspecialchars($username); ?> (Admin)</span>
-                <a href="login.php" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition">Sign Out</a>
+                <span class="text-blue-400">Welcome, <?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?> (Admin)</span>
+                <a href="logout.php" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition">Sign Out</a>
             </nav>
         </header>
 
@@ -58,40 +79,28 @@ $username = $_SESSION['username'];
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-700/60">
-                            <?php
-                            // Relational JOIN query using your applications, users, jobs, and companies tables
-                            $sql = "SELECT 
-                                        applications.id AS application_id,
-                                        users.username AS name,
-                                        users.email AS email,
-                                        jobs.title AS job_title,
-                                        companies.company_name,
-                                        applications.status,
-                                        applications.applied_at
-                                    FROM applications
-                                    JOIN users ON applications.user_id = users.id
-                                    JOIN jobs ON applications.job_id = jobs.id
-                                    JOIN companies ON jobs.company_id = companies.id
-                                    ORDER BY applications.id DESC";
-
-                            $result = mysqli_query($conn, $sql);
-
-                            if ($result && mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr class='hover:bg-slate-700/40 transition'>";
-                                    echo "<td class='p-4 font-mono text-slate-400'>#" . htmlspecialchars($row['application_id']) . "</td>";
-                                    echo "<td class='p-4 font-semibold text-white'>" . htmlspecialchars($row['name']) . "</td>";
-                                    echo "<td class='p-4 text-blue-400'>" . htmlspecialchars($row['email']) . "</td>";
-                                    echo "<td class='p-4'>" . htmlspecialchars($row['job_title']) . "</td>";
-                                    echo "<td class='p-4 text-slate-300'>" . htmlspecialchars($row['company_name']) . "</td>";
-                                    echo "<td class='p-4'><span class='bg-blue-500/10 text-blue-400 px-2.5 py-1 rounded-full text-xs border border-blue-500/20'>" . htmlspecialchars($row['status']) . "</span></td>";
-                                    echo "<td class='p-4 text-xs text-slate-400'>" . htmlspecialchars($row['applied_at']) . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='7' class='p-6 text-center text-slate-400'>No job applications found in database.</td></tr>";
-                            }
-                            ?>
+                            <?php if (!empty($applications)): ?>
+                            <?php foreach ($applications as $row): ?>
+                                    <tr class="hover:bg-slate-700/40 transition">
+                                        <!-- XSS Protection with htmlspecialchars -->
+                                        <td class="p-4 font-mono text-slate-400">#<?php echo htmlspecialchars($row['application_id'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td class="p-4 font-semibold text-white"><?php echo htmlspecialchars($row['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td class="p-4 text-blue-400"><?php echo htmlspecialchars($row['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td class="p-4"><?php echo htmlspecialchars($row['job_title'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td class="p-4 text-slate-300"><?php echo htmlspecialchars($row['company_name'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td class="p-4">
+                                            <span class="bg-blue-500/10 text-blue-400 px-2.5 py-1 rounded-full text-xs border border-blue-500/20">
+                                                <?php echo htmlspecialchars($row['status'] ?? 'Pending', ENT_QUOTES, 'UTF-8'); ?>
+                                            </span>
+                                        </td>
+                                        <td class="p-4 text-xs text-slate-400"><?php echo htmlspecialchars($row['applied_at'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="7" class="p-6 text-center text-slate-400">No job applications found in database.</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
