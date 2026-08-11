@@ -197,7 +197,7 @@ $jobs = $stmt->fetchAll();
                 </div>
                 <div class="testimonial-card bg-slate-800 p-4 rounded-xl border border-slate-700/60">
                     <p class="text-sm text-slate-300 italic mb-3">"Best platform for fresh graduates in Bangladesh."</p>
-                    <h5 class="text-xs font-bold text-blue-400">- Faria, Software Intern</h5>
+                    <h5 class="text-xs font-bold text-blue-400">- Faria Zaman, Software Intern</h5>
                 </div>
             </div>
         </section>
