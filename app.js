@@ -1,6 +1,7 @@
 // ==========================================
 // APP ROOT DOM LOCATORS
 // ==========================================
+console.log("NEW APP.JS IS RUNNING");
 const appContainer = document.getElementById('app');
 const mainDashboard = document.getElementById('main-dashboard');
 // ==========================================
@@ -437,4 +438,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 // INITIALIZE ENGINE (Keep at the absolute bottom)
 // Since PHP handles login, load the dashboard interface directly:
-//loadDashboardScreen();
+loadDashboardScreen();
