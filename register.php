@@ -64,15 +64,18 @@ else {
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-slate-900 text-white font-sans min-h-screen flex flex-col items-center justify-center p-4">
-
-<h2>Create Account</h2>
+<!-- FIX 1: Bigger and styled heading -->
+<h2 style="font-size:32px; font-weight:bold; margin-bottom:15px;">Create Account</h2>
     <!-- XSS Protection with htmlspecialchars -->
 <?php if (!empty($message)): ?>
     <p style="color:red;"><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></p>
 <?php endif; ?>
 <form method="POST">
 <label for="role">Register As:</label><br>
-<select name="role" id="role" required style="padding:8px; margin-bottom:10px;">
+<select name="role" id="role" required style="padding:10px; margin-bottom:10px; width:200px;
+    border-radius:6px; border:none; outline:none; cursor:pointer; color:#000; background-color:#fff;">
+     <!-- FIX 3: Disabled placeholder so white blank option disappears -->
+    <option value="" disabled selected>Select Role</option>
     <option value="user">User</option>
     <option value="admin">Admin</option>
 </select><br><br>
@@ -82,7 +85,9 @@ else {
 
 <input type="password" name="password" placeholder="Password" required><br><br>
 
-<button type="submit" name="register">Register</button>
+<button type="submit" name="register"  style="background-color:#2563eb; color:white;
+    padding:10px 20px; border:none; border-radius:6px;
+    font-weight:bold; cursor:pointer; transition:0.3s;">Register</button>
 
 </form>
 <p style="text-align:center; margin-top:15px; font-family:Arial;">
