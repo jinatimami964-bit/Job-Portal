@@ -79,11 +79,11 @@ else {
     <option value="user">User</option>
     <option value="admin">Admin</option>
 </select><br><br>
-<input type="text" name="username" placeholder="Username" required><br><br>
+<input type="text" name="username" placeholder="Username" required class="text-black p-2 rounded"><br><br>
 
-<input type="email" name="email" placeholder="Email" required><br><br>
+<input type="email" name="email" placeholder="Email" required class="text-black p-2 rounded"><br><br>
 
-<input type="password" name="password" placeholder="Password" required><br><br>
+<input type="password" name="password" placeholder="Password" required class="text-black p-2 rounded"><br><br>
 
 <button type="submit" name="register"  style="background-color:#2563eb; color:white;
     padding:10px 20px; border:none; border-radius:6px;
